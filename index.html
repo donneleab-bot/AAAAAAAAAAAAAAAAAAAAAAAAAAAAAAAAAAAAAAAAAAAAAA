@@ -1,0 +1,3164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050308">
+<title>ArtHaven — премиальный рынок артов</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --void:       #050308;
+  --abyss:      #08060f;
+  --deep:       #0c0918;
+  --main:       #100c1f;
+  --card:       #16112a;
+  --elev:       #1c1634;
+
+  --gold-white: #fbf0c9;
+  --gold-glow:  #f4e0a8;
+  --gold-soft:  #ddc088;
+  --gold:       #c9a961;
+  --gold-deep:  #8f7440;
+  --gold-dark:  #5a472a;
+
+  --violet-glow:#8a5ec9;
+  --violet:     #5a3384;
+  --violet-deep:#2e1c44;
+
+  --crimson-glow:#d94870;
+  --crimson:    #7a1f3a;
+
+  --ink:        #f0e9d8;
+  --ink-soft:   #b8ab90;
+  --ink-mute:   #7a7082;
+  --ink-faint:  #4a4354;
+
+  --success:    #7ba87b;
+  --danger:     #c76a6a;
+
+  --b-soft:     rgba(236,228,212,.06);
+  --b-mid:      rgba(201,169,97,.14);
+  --b-gold:     rgba(201,169,97,.35);
+  --b-loud:     rgba(201,169,97,.6);
+
+  --sh-sm:      0 4px 12px rgba(0,0,0,.45);
+  --sh-md:      0 12px 32px rgba(0,0,0,.55);
+  --sh-lg:      0 24px 60px rgba(0,0,0,.65);
+  --sh-glow:    0 0 50px rgba(201,169,97,.22);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--main);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(1px 1px at  4%  8%, rgba(251,240,201,.7), transparent),
+    radial-gradient(1px 1px at 12% 22%, rgba(251,240,201,.4), transparent),
+    radial-gradient(1.5px 1.5px at 18%  5%, rgba(251,240,201,.85), transparent),
+    radial-gradient(1px 1px at 26% 36%, rgba(251,240,201,.45), transparent),
+    radial-gradient(1px 1px at 34% 14%, rgba(251,240,201,.55), transparent),
+    radial-gradient(1.5px 1.5px at 42% 58%, rgba(251,240,201,.75), transparent),
+    radial-gradient(1px 1px at 50% 12%, rgba(251,240,201,.5), transparent),
+    radial-gradient(1px 1px at 58% 42%, rgba(251,240,201,.4), transparent),
+    radial-gradient(1.5px 1.5px at 66% 78%, rgba(251,240,201,.8), transparent),
+    radial-gradient(1px 1px at 74% 22%, rgba(251,240,201,.5), transparent),
+    radial-gradient(1px 1px at 82% 56%, rgba(251,240,201,.45), transparent),
+    radial-gradient(1.5px 1.5px at 90% 14%, rgba(251,240,201,.7), transparent),
+    radial-gradient(1px 1px at  8% 72%, rgba(251,240,201,.55), transparent),
+    radial-gradient(1px 1px at 22% 84%, rgba(251,240,201,.4), transparent),
+    radial-gradient(1px 1px at 38% 92%, rgba(251,240,201,.5), transparent),
+    radial-gradient(1.5px 1.5px at 54% 88%, rgba(251,240,201,.7), transparent),
+    radial-gradient(1px 1px at 70% 94%, rgba(251,240,201,.45), transparent),
+    radial-gradient(1px 1px at 86% 82%, rgba(251,240,201,.55), transparent),
+    radial-gradient(ellipse 60% 45% at  8% -8%, rgba(201,169,97,.16), transparent 55%),
+    radial-gradient(ellipse 55% 40% at 92%  4%, rgba(138,94,201,.16), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 50% 108%, rgba(122,31,58,.16), transparent 55%),
+    linear-gradient(180deg, var(--main) 0%, var(--void) 100%);
+  background-attachment: fixed;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 90% 70% at 50% 40%, transparent 40%, rgba(0,0,0,.6) 100%);
+}
+
+::selection { background: rgba(201,169,97,.35); color: var(--ink); }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--violet), var(--gold-deep));
+  border-radius: 12px;
+  border: 3px solid var(--void);
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+img, svg { display: block; max-width: 100%; }
+
+.ic {
+  width: 18px; height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* ═══════════ ХЕДЕР ═══════════ */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  padding: 0 48px;
+  background: rgba(5,3,8,.94);
+  border-bottom: 1px solid rgba(201,169,97,.22);
+  box-shadow: inset 0 1px 0 rgba(201,169,97,.06), 0 4px 24px rgba(0,0,0,.5);
+}
+.topbar-inner {
+  max-width: 1800px; margin: 0 auto;
+  height: 72px;
+  display: flex; align-items: center; gap: 40px;
+}
+.logo {
+  display: flex; align-items: center; gap: 14px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px; font-weight: 800;
+  letter-spacing: -.4px;
+  flex-shrink: 0;
+}
+.logo-mark {
+  width: 44px; height: 58px;
+  display: grid; place-items: center;
+  border-radius: 7px;
+  background: radial-gradient(circle at 50% 30%, rgba(201,169,97,.30), transparent 60%), linear-gradient(160deg, var(--violet-deep), var(--void));
+  border: 1px solid rgba(201,169,97,.7);
+  box-shadow: inset 0 0 0 1px rgba(201,169,97,.35), inset 0 0 0 5px rgba(5,3,8,.9), inset 0 0 0 6px rgba(201,169,97,.4), 0 6px 20px rgba(0,0,0,.55), 0 0 30px rgba(201,169,97,.15);
+  position: relative;
+}
+.logo-mark::before {
+  content: 'XXI';
+  position: absolute;
+  top: 4px; left: 0; right: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 8px; font-weight: 800;
+  text-align: center;
+  color: var(--gold);
+  letter-spacing: 1.6px;
+}
+.logo-mark svg {
+  width: 20px; height: 20px;
+  stroke: var(--gold-glow);
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px rgba(244,224,168,.8));
+}
+.logo-text-accent {
+  background: linear-gradient(180deg, var(--gold-white) 0%, var(--gold) 55%, var(--gold-deep) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.main-nav {
+  display: flex; gap: 0;
+  padding: 4px;
+  background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(0,0,0,.15));
+  border-radius: 12px;
+  border: 1px solid var(--b-soft);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+.main-nav a {
+  padding: 9px 18px;
+  color: var(--ink-mute);
+  font-size: 13.5px; font-weight: 500;
+  border-radius: 9px;
+  transition: color .2s, background .2s;
+  position: relative;
+}
+.main-nav a:hover { color: var(--gold-soft); background: rgba(201,169,97,.06); }
+.main-nav a.active {
+  color: var(--gold-white);
+  background: linear-gradient(180deg, rgba(201,169,97,.22), rgba(201,169,97,.08));
+  box-shadow: inset 0 1px 0 rgba(244,224,168,.25), inset 0 -1px 0 rgba(0,0,0,.2);
+}
+.main-nav a.active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 20%; right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-glow), transparent);
+}
+
+.topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.icon-btn {
+  position: relative;
+  height: 42px; min-width: 42px; padding: 0 14px;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.15));
+  border: 1px solid var(--b-soft);
+  border-radius: 11px;
+  font-size: 13.5px; font-weight: 500;
+  color: var(--ink-soft);
+  transition: background .2s, border-color .2s, color .2s;
+}
+.icon-btn:hover { background: rgba(201,169,97,.08); border-color: var(--b-gold); color: var(--gold-soft); }
+.icon-btn.wallet {
+  color: var(--gold);
+  font-weight: 700;
+  background: linear-gradient(180deg, rgba(201,169,97,.14), rgba(201,169,97,.06));
+  border-color: rgba(201,169,97,.35);
+  font-family: 'Manrope', sans-serif;
+  box-shadow: inset 0 1px 0 rgba(244,224,168,.15), inset 0 -1px 0 rgba(0,0,0,.15);
+}
+.badge {
+  position: absolute; top: -4px; right: -4px;
+  background: linear-gradient(135deg, var(--crimson-glow), var(--crimson));
+  color: #fff;
+  font-size: 10px; font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 20px;
+  border: 2px solid var(--void);
+  min-width: 20px; text-align: center;
+  line-height: 1.2;
+  box-shadow: 0 0 12px rgba(217,72,112,.7);
+}
+.avatar {
+  width: 42px; height: 56px;
+  border-radius: 7px;
+  background: radial-gradient(circle at 50% 30%, rgba(201,169,97,.28), transparent 60%), linear-gradient(160deg, var(--violet-deep), var(--void));
+  border: 1px solid rgba(201,169,97,.7);
+  cursor: pointer;
+  display: grid; place-items: center;
+  box-shadow: inset 0 0 0 3px rgba(5,3,8,.85), inset 0 0 0 4px rgba(201,169,97,.3), 0 4px 14px rgba(0,0,0,.5);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px; font-weight: 800;
+  color: var(--gold-glow);
+  letter-spacing: .5px;
+  transition: transform .2s, border-color .2s;
+}
+.avatar:hover { transform: translateY(-1px); border-color: var(--gold); }
+
+/* ═══════════ КНОПКИ ═══════════ */
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 26px;
+  background: linear-gradient(180deg, rgba(255,255,255,.20), transparent 45%), linear-gradient(180deg, var(--gold-soft) 0%, var(--gold) 50%, var(--gold-deep) 100%);
+  color: #1a1206;
+  font-weight: 700; font-size: 14px;
+  border-radius: 11px;
+  border: 1px solid rgba(255,255,255,.28);
+  box-shadow: 0 6px 18px rgba(201,169,97,.35), inset 0 1px 0 rgba(255,255,255,.45), inset 0 -1px 0 rgba(0,0,0,.18);
+  transition: transform .18s, box-shadow .18s, filter .18s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,.28), transparent);
+  pointer-events: none;
+  border-radius: 11px 11px 0 0;
+}
+.btn-primary:hover { transform: translateY(-1px); filter: brightness(1.06); }
+.btn-primary.sm { padding: 9px 16px; font-size: 13px; border-radius: 9px; }
+.btn-primary.full { width: 100%; padding: 15px; }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 22px;
+  background: linear-gradient(180deg, rgba(201,169,97,.08), rgba(201,169,97,.03));
+  border: 1px solid rgba(201,169,97,.35);
+  color: var(--gold-soft);
+  font-weight: 600; font-size: 14px;
+  border-radius: 11px;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.btn-ghost:hover { background: rgba(201,169,97,.14); border-color: var(--b-loud); color: var(--gold-white); }
+.btn-ghost svg { transition: transform .2s; }
+.btn-ghost:hover svg { transform: translateX(3px); }
+
+/* ═══════════ СЕКЦИИ ═══════════ */
+.full-section { position: relative; padding: 52px 0; }
+.layout { max-width: 1800px; margin: 0 auto; padding: 0 48px; }
+
+.divider {
+  max-width: 1800px; margin: 0 auto;
+  padding: 0 48px; height: 40px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.divider::before {
+  content: '';
+  position: absolute;
+  left: 48px; right: 48px;
+  top: 50%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,169,97,.35) 20%, rgba(201,169,97,.55) 50%, rgba(201,169,97,.35) 80%, transparent);
+}
+.divider span {
+  position: relative; z-index: 1;
+  background: var(--main);
+  padding: 0 24px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px; font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 6px;
+  display: inline-flex; align-items: center; gap: 16px;
+}
+.divider span::before, .divider span::after {
+  content: '✦'; font-size: 10px; color: rgba(201,169,97,.7);
+}
+
+.section-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 36px;
+  gap: 24px; flex-wrap: wrap;
+}
+.section-head .title-wrap { display: flex; flex-direction: column; gap: 8px; }
+.section-head h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 46px; font-weight: 700;
+  letter-spacing: -.5px;
+  line-height: 1.02;
+  display: inline-flex; align-items: center; gap: 16px;
+  background: linear-gradient(180deg, var(--gold-white) 0%, var(--gold) 55%, var(--gold-deep) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.section-head h2 .live-pulse {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 0 rgba(201,169,97,.6);
+  animation: pulse 1.8s ease-in-out infinite;
+  -webkit-text-fill-color: initial;
+  flex-shrink: 0;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,97,.7); }
+  50%      { box-shadow: 0 0 0 10px rgba(201,169,97,0); }
+}
+.section-head p {
+  color: var(--ink-mute);
+  font-size: 15px;
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* ═══════════ LIVE ═══════════ */
+.live-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 0.8fr);
+  gap: 20px;
+}
+.live-main {
+  position: relative;
+  background: radial-gradient(circle at 20% 15%, rgba(109,61,155,.16), transparent 55%), linear-gradient(165deg, var(--card) 0%, var(--deep) 100%);
+  border: 1px solid var(--b-gold);
+  border-radius: 20px;
+  padding: 26px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  box-shadow: var(--sh-md), inset 0 1px 0 rgba(244,224,168,.10), 0 0 80px rgba(201,169,97,.10);
+  overflow: hidden;
+}
+.live-main::before {
+  content: '';
+  position: absolute; inset: 14px;
+  border-radius: 14px;
+  background:
+    linear-gradient(90deg, rgba(201,169,97,.5) 0 20px, transparent 20px) top left / 20px 1.5px no-repeat,
+    linear-gradient(180deg, rgba(201,169,97,.5) 0 20px, transparent 20px) top left / 1.5px 20px no-repeat,
+    linear-gradient(90deg, transparent calc(100% - 20px), rgba(201,169,97,.5) 0) top right / 20px 1.5px no-repeat,
+    linear-gradient(180deg, rgba(201,169,97,.5) 0 20px, transparent 20px) top right / 1.5px 20px no-repeat,
+    linear-gradient(90deg, rgba(201,169,97,.5) 0 20px, transparent 20px) bottom left / 20px 1.5px no-repeat,
+    linear-gradient(180deg, transparent calc(100% - 20px), rgba(201,169,97,.5) 0) bottom left / 1.5px 20px no-repeat,
+    linear-gradient(90deg, transparent calc(100% - 20px), rgba(201,169,97,.5) 0) bottom right / 20px 1.5px no-repeat,
+    linear-gradient(180deg, transparent calc(100% - 20px), rgba(201,169,97,.5) 0) bottom right / 1.5px 20px no-repeat;
+  pointer-events: none;
+}
+.live-badge {
+  position: absolute; top: 40px; left: 40px; z-index: 3;
+  display: flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, var(--crimson-glow), var(--crimson));
+  color: #fff;
+  padding: 7px 14px; border-radius: 20px;
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 1.8px;
+  box-shadow: 0 6px 20px rgba(217,72,112,.55);
+}
+.live-badge::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: #fff;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.live-preview {
+  height: 340px;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(201,169,97,.10), transparent 55%),
+    radial-gradient(circle at 50% 45%, rgba(109,61,155,.20), transparent 70%),
+    linear-gradient(160deg, #15102a 0%, #08060f 100%);
+  display: grid; place-items: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(201,169,97,.18);
+  box-shadow: inset 0 0 80px rgba(0,0,0,.7);
+}
+.live-info { display: flex; flex-direction: column; }
+.live-info h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px; font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.1;
+  letter-spacing: -.2px;
+  background: linear-gradient(180deg, var(--gold-white), var(--gold) 60%, var(--gold-deep));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.live-info .author {
+  color: var(--ink-mute); font-size: 14px; margin-bottom: 18px;
+  display: flex; align-items: center; gap: 8px;
+}
+.live-info .author b { color: var(--gold-soft); font-weight: 600; }
+.live-info .author::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(201,169,97,.7);
+}
+.bid-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 0;
+  border-top: 1px solid var(--b-soft);
+  border-bottom: 1px solid var(--b-soft);
+  margin-bottom: 14px;
+}
+.bid-row span {
+  color: var(--ink-mute); font-size: 12px;
+  text-transform: uppercase; letter-spacing: 1.5px;
+}
+.bid-row strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 26px; font-weight: 800;
+  background: linear-gradient(180deg, var(--gold-white), var(--gold) 60%, var(--gold-deep));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -.5px;
+}
+.bid-row strong .currency { font-size: 14px; opacity: .8; }
+.timer {
+  text-align: center;
+  font-family: 'Manrope', monospace;
+  font-size: 15px; font-weight: 700;
+  color: var(--gold-soft);
+  padding: 12px;
+  background: linear-gradient(180deg, rgba(201,169,97,.08), rgba(201,169,97,.02));
+  border: 1px solid rgba(201,169,97,.25);
+  border-radius: 10px;
+  margin-bottom: 14px;
+  letter-spacing: 4px;
+  font-variant-numeric: tabular-nums;
+  box-shadow: inset 0 1px 0 rgba(244,224,168,.10);
+}
+.live-side { display: flex; flex-direction: column; gap: 12px; }
+.mini-auction {
+  flex: 1;
+  display: flex; gap: 14px;
+  background: linear-gradient(165deg, var(--card), var(--deep));
+  border: 1px solid var(--b-soft);
+  border-radius: 14px;
+  padding: 14px;
+  transition: border-color .22s, transform .22s, box-shadow .22s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.mini-auction::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg, var(--gold), var(--violet));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .28s;
+}
+.mini-auction:hover { border-color: var(--b-gold); transform: translateX(-4px); box-shadow: var(--sh-md); }
+.mini-auction:hover::before { transform: scaleY(1); }
+.mini-thumb {
+  width: 60px; height: 90px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  background: linear-gradient(160deg, var(--violet-deep), var(--void));
+  display: grid; place-items: center;
+  border: 1px solid rgba(201,169,97,.55);
+  box-shadow: inset 0 0 0 3px rgba(5,3,8,.85), inset 0 0 0 4px rgba(201,169,97,.3);
+  overflow: hidden;
+}
+.mini-thumb svg { width: 100%; height: 100%; }
+.mini-thumb.violet { background: linear-gradient(160deg, var(--violet), var(--violet-deep)); }
+.mini-thumb.crimson { background: linear-gradient(160deg, var(--crimson), #2e0f1a); }
+.mini-info { display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; }
+.mini-info h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 700;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  letter-spacing: -.2px;
+}
+.mini-info .mini-price {
+  color: var(--gold-soft); font-weight: 700;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+}
+.mini-info .mini-bids {
+  color: var(--ink-mute); font-size: 11.5px;
+  font-family: 'Manrope', monospace;
+  letter-spacing: 1px;
+}
+
+.bids-feed {
+  background: linear-gradient(165deg, var(--card), var(--deep));
+  border: 1px solid var(--b-soft);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex; flex-direction: column; gap: 12px;
+  overflow: hidden;
+}
+.bids-feed h5 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px; font-weight: 700;
+  color: var(--gold-soft);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--b-soft);
+  display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+.bids-feed h5::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(201,169,97,.8);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+.bid-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(236,228,212,.06);
+  font-size: 13px;
+}
+.bid-item:last-child { border-bottom: none; }
+.bid-avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px; font-weight: 800;
+  color: #1a1206;
+  border: 1px solid rgba(201,169,97,.5);
+}
+.bid-avatar.a { background: linear-gradient(135deg, var(--gold-glow), var(--gold)); }
+.bid-avatar.b { background: linear-gradient(135deg, var(--violet-glow), var(--violet)); color: #fff; }
+.bid-avatar.c { background: linear-gradient(135deg, var(--crimson-glow), var(--crimson)); color: #fff; }
+.bid-avatar.d { background: linear-gradient(135deg, #5a9ec9, #2a4a6a); color: #fff; }
+.bid-info { flex: 1; min-width: 0; }
+.bid-info .name {
+  font-weight: 600;
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.bid-info .time { font-size: 11px; color: var(--ink-faint); font-family: 'Manrope', monospace; }
+.bid-amount {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  color: var(--gold-soft);
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   КАРТА ТАРО
+   ═══════════════════════════════════════════════════════════ */
+.hot-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
+}
+.card-tarot {
+  position: relative;
+  border-radius: 14px;
+  padding: 20px 18px 18px;
+  background:
+    radial-gradient(circle at 50% 15%, rgba(90,51,132,.10), transparent 65%),
+    linear-gradient(165deg, #15102a 0%, #0a0715 100%);
+  border: 1px solid rgba(201,169,97,.30);
+  box-shadow: inset 0 0 0 1px rgba(201,169,97,.10), 0 8px 30px rgba(0,0,0,.5);
+  display: flex; flex-direction: column; gap: 0;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease, border-color .4s ease;
+  will-change: transform;
+}
+.card-tarot:hover {
+  transform: translateY(-5px);
+  border-color: rgba(201,169,97,.55);
+  box-shadow: inset 0 0 0 1px rgba(201,169,97,.20), 0 20px 50px rgba(0,0,0,.65), 0 0 80px rgba(201,169,97,.10);
+}
+.card-tarot::before {
+  content: '';
+  position: absolute; inset: 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(201,169,97,.15);
+  pointer-events: none;
+  z-index: 1;
+}
+.card-tarot .corner-orn {
+  position: absolute;
+  width: 30px; height: 30px;
+  pointer-events: none;
+  z-index: 4;
+  color: rgba(201,169,97,.45);
+}
+.card-tarot .corner-orn.tl { top: 8px; left: 8px; }
+.card-tarot .corner-orn.tr { top: 8px; right: 8px; transform: scaleX(-1); }
+.card-tarot .corner-orn.bl { bottom: 8px; left: 8px; transform: scaleY(-1); }
+.card-tarot .corner-orn.br { bottom: 8px; right: 8px; transform: scale(-1, -1); }
+
+.card-top {
+  text-align: center;
+  padding: 6px 0 14px;
+  position: relative;
+  z-index: 2;
+}
+.card-top .roman {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(201,169,97,.75);
+  letter-spacing: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 18px;
+}
+.card-top .roman::before,
+.card-top .roman::after {
+  content: '';
+  width: 26px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,169,97,.55));
+}
+.card-top .roman::after { transform: scaleX(-1); }
+
+.card-scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(90,51,132,.14) 0%, transparent 55%),
+    linear-gradient(180deg, #0f0a20 0%, #06040e 100%);
+  box-shadow: inset 0 0 0 1px rgba(201,169,97,.18), inset 0 0 60px rgba(0,0,0,.85);
+}
+.card-tarot.v-violet .card-scene {
+  background: radial-gradient(circle at 50% 50%, rgba(90,51,132,.24) 0%, transparent 55%), linear-gradient(180deg, #0f0a20 0%, #06040e 100%);
+}
+.card-tarot.v-crimson .card-scene {
+  background: radial-gradient(circle at 50% 50%, rgba(122,31,58,.22) 0%, transparent 55%), linear-gradient(180deg, #100610 0%, #06040e 100%);
+}
+.card-tarot.v-gold .card-scene {
+  background: radial-gradient(circle at 50% 50%, rgba(143,116,64,.20) 0%, transparent 55%), linear-gradient(180deg, #100c08 0%, #06040e 100%);
+}
+.card-tarot.v-deep .card-scene {
+  background: radial-gradient(circle at 50% 50%, rgba(70,40,100,.18) 0%, transparent 55%), linear-gradient(180deg, #0a0616 0%, #06040e 100%);
+}
+
+.card-scene svg.scene-svg {
+  width: 100%; height: 100%;
+  display: block;
+  position: relative;
+  z-index: 1;
+  color: #b8a878;
+}
+.card-scene::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 45%, transparent 40%, rgba(0,0,0,.80) 100%);
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 8px;
+}
+.card-caption {
+  text-align: center;
+  padding: 14px 0 4px;
+  position: relative;
+  z-index: 2;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(201,169,97,.62);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.card-caption::before,
+.card-caption::after {
+  content: '';
+  width: 32px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,169,97,.35), transparent);
+}
+.card-name {
+  text-align: center;
+  padding: 6px 8px 14px;
+  position: relative;
+  z-index: 2;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -.2px;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.card-name small {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink-mute);
+  letter-spacing: .5px;
+  margin-top: 4px;
+}
+.card-name small b { color: var(--gold-soft); font-weight: 500; }
+
+.card-tag {
+  position: absolute;
+  top: 22px; right: 22px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  border: 1px solid rgba(201,169,97,.35);
+  white-space: nowrap;
+  z-index: 5;
+  color: rgba(201,169,97,.85);
+  background: rgba(5,3,8,.6);
+}
+.card-tag.gold { color: var(--gold-glow); border-color: rgba(201,169,97,.5); }
+.card-tag.nsfw { color: #d97a9a; border-color: rgba(217,122,154,.5); }
+.card-tag.violet { color: rgba(201,169,97,.75); border-color: rgba(201,169,97,.35); }
+
+.card-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(201,169,97,.12);
+  border-bottom: 1px solid rgba(201,169,97,.12);
+  position: relative;
+  z-index: 2;
+  margin: 4px 0 14px;
+}
+.card-meta-item {
+  padding: 12px 6px;
+  text-align: center;
+  display: flex; flex-direction: column; gap: 4px;
+  position: relative;
+}
+.card-meta-item + .card-meta-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 1px;
+  background: rgba(201,169,97,.10);
+}
+.card-meta-item .label {
+  font-size: 9px;
+  color: rgba(201,169,97,.55);
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  font-weight: 600;
+}
+.card-meta-item .value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gold-soft);
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+}
+.card-meta-item .value .ic { width: 11px; height: 11px; stroke: rgba(201,169,97,.6); stroke-width: 1.8; }
+
+.card-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+}
+.card-footer .price { display: flex; flex-direction: column; gap: 2px; }
+.card-footer .price span {
+  font-size: 9.5px; color: rgba(201,169,97,.5);
+  text-transform: uppercase; letter-spacing: 1.4px;
+  font-weight: 600;
+}
+.card-footer .price strong {
+  font-family: 'Manrope', sans-serif;
+  color: var(--gold-soft);
+  font-size: 18px; font-weight: 700;
+  letter-spacing: -.2px;
+}
+.card-tarot .btn-primary {
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-deep) 100%);
+  border-color: rgba(143,116,64,.8);
+  box-shadow: 0 3px 10px rgba(201,169,97,.20), inset 0 1px 0 rgba(255,255,255,.2);
+  font-size: 12.5px;
+  padding: 8px 16px;
+}
+.card-tarot .btn-primary:hover {
+  filter: brightness(1.10);
+  box-shadow: 0 6px 16px rgba(201,169,97,.35), inset 0 1px 0 rgba(255,255,255,.3);
+}
+
+/* ═══════════ СЛОТЫ ═══════════ */
+.slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+}
+.slot-card {
+  position: relative;
+  border-radius: 14px;
+  padding: 20px 18px 18px;
+  background: radial-gradient(circle at 50% 15%, rgba(90,51,132,.10), transparent 65%), linear-gradient(165deg, #15102a 0%, #0a0715 100%);
+  border: 1px solid rgba(201,169,97,.30);
+  box-shadow: inset 0 0 0 1px rgba(201,169,97,.10), 0 8px 30px rgba(0,0,0,.5);
+  display: flex; flex-direction: column; gap: 12px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease, border-color .4s ease;
+}
+.slot-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(201,169,97,.55);
+  box-shadow: inset 0 0 0 1px rgba(201,169,97,.20), 0 20px 50px rgba(0,0,0,.65), 0 0 80px rgba(201,169,97,.10);
+}
+.slot-card.closed { opacity: .6; }
+.slot-card::before {
+  content: '';
+  position: absolute; inset: 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(201,169,97,.15);
+  pointer-events: none;
+  z-index: 1;
+}
+.slot-card .corner-orn {
+  position: absolute;
+  width: 30px; height: 30px;
+  pointer-events: none;
+  z-index: 4;
+  color: rgba(201,169,97,.45);
+}
+.slot-card .corner-orn.tl { top: 8px; left: 8px; }
+.slot-card .corner-orn.tr { top: 8px; right: 8px; transform: scaleX(-1); }
+.slot-card .corner-orn.bl { bottom: 8px; left: 8px; transform: scaleY(-1); }
+.slot-card .corner-orn.br { bottom: 8px; right: 8px; transform: scale(-1, -1); }
+
+.slot-title-block {
+  text-align: center;
+  padding: 6px 0 12px;
+  position: relative;
+  z-index: 2;
+}
+.slot-title-block .roman {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(201,169,97,.75);
+  letter-spacing: 6px;
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.slot-title-block .roman::before,
+.slot-title-block .roman::after {
+  content: '';
+  width: 26px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,169,97,.55));
+}
+.slot-title-block .roman::after { transform: scaleX(-1); }
+
+.slot-scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 2;
+  background: radial-gradient(circle at 50% 50%, rgba(90,51,132,.14) 0%, transparent 55%), linear-gradient(180deg, #0f0a20 0%, #06040e 100%);
+  box-shadow: inset 0 0 0 1px rgba(201,169,97,.18), inset 0 0 60px rgba(0,0,0,.85);
+  display: grid; place-items: center;
+}
+.slot-card.v-violet .slot-scene { background: radial-gradient(circle at 50% 50%, rgba(90,51,132,.24) 0%, transparent 55%), linear-gradient(180deg, #0f0a20 0%, #06040e 100%); }
+.slot-card.v-gold .slot-scene { background: radial-gradient(circle at 50% 50%, rgba(143,116,64,.20) 0%, transparent 55%), linear-gradient(180deg, #100c08 0%, #06040e 100%); }
+.slot-card.v-crimson .slot-scene { background: radial-gradient(circle at 50% 50%, rgba(122,31,58,.22) 0%, transparent 55%), linear-gradient(180deg, #100610 0%, #06040e 100%); }
+.slot-scene svg { width: 100%; height: 100%; display: block; position: relative; z-index: 1; color: #b8a878; }
+.slot-scene::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0,0,0,.80) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.slot-name {
+  text-align: center;
+  padding: 8px 6px 4px;
+  position: relative;
+  z-index: 2;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.slot-name small {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink-mute);
+  letter-spacing: .5px;
+  margin-top: 4px;
+}
+
+.slot-status-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(201,169,97,.10);
+  border-bottom: 1px solid rgba(201,169,97,.10);
+}
+.slot-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 11px;
+  border-radius: 4px;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+  border: 1px solid;
+}
+.slot-status.open { background: transparent; color: #8bc78b; border-color: rgba(123,168,123,.5); }
+.slot-status.open::before {
+  content: '';
+  width: 5px; height: 5px;
+  background: #8bc78b;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(139,199,139,.8);
+}
+.slot-status.closed { background: transparent; color: #c98282; border-color: rgba(199,106,106,.5); }
+.slot-places { display: flex; gap: 5px; margin-left: auto; }
+.place-dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,169,97,.35);
+  position: relative;
+}
+.place-dot.free {
+  background: radial-gradient(circle at 35% 35%, var(--gold-glow), var(--gold) 70%, var(--gold-deep));
+  box-shadow: 0 0 8px rgba(201,169,97,.55);
+}
+.place-dot.taken { background: rgba(90,71,42,.35); border-color: rgba(90,71,42,.6); }
+.place-dot.taken::after {
+  content: '✕';
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-size: 7px;
+  color: rgba(201,169,97,.4);
+}
+.places-count {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gold-soft);
+  margin-left: 6px;
+}
+.slot-bids {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(201,169,97,.10);
+  border-bottom: 1px solid rgba(201,169,97,.10);
+  margin: 4px 0 12px;
+}
+.slot-bids-item {
+  padding: 12px 12px;
+  display: flex; flex-direction: column; gap: 3px;
+  position: relative;
+}
+.slot-bids-item + .slot-bids-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 1px;
+  background: rgba(201,169,97,.10);
+}
+.slot-bids-item .label {
+  font-size: 9px;
+  color: rgba(201,169,97,.55);
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  font-weight: 600;
+}
+.slot-bids-item .value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gold-soft);
+  display: flex; align-items: center; gap: 5px;
+}
+.slot-bids-item .value .ic { width: 12px; height: 12px; stroke: rgba(201,169,97,.6); stroke-width: 1.8; }
+
+.slot-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  margin-top: auto;
+  position: relative;
+  z-index: 2;
+}
+.slot-price { display: flex; flex-direction: column; gap: 2px; }
+.slot-price span {
+  font-size: 9.5px; color: rgba(201,169,97,.5);
+  text-transform: uppercase; letter-spacing: 1.4px;
+  font-weight: 600;
+}
+.slot-price strong {
+  font-family: 'Manrope', sans-serif;
+  color: var(--gold-soft);
+  font-size: 19px; font-weight: 700;
+}
+.slot-card .btn-primary {
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-deep) 100%);
+  border-color: rgba(143,116,64,.8);
+  box-shadow: 0 3px 10px rgba(201,169,97,.20), inset 0 1px 0 rgba(255,255,255,.2);
+  font-size: 12.5px;
+  padding: 8px 16px;
+}
+.slot-card .btn-primary:hover {
+  filter: brightness(1.10);
+  box-shadow: 0 6px 16px rgba(201,169,97,.35), inset 0 1px 0 rgba(255,255,255,.3);
+}
+
+/* ═══════════ ДОВЕРИЕ ═══════════ */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+.feature {
+  position: relative;
+  background: linear-gradient(170deg, var(--card), var(--deep));
+  border: 1px solid var(--b-soft);
+  border-radius: 14px;
+  padding: 28px;
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+  overflow: hidden;
+}
+.feature::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 50px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.feature:hover { border-color: var(--b-gold); transform: translateY(-4px); box-shadow: var(--sh-md), var(--sh-glow); }
+.feature:hover::before { opacity: 1; }
+.feature-icon {
+  width: 54px; height: 54px;
+  display: grid; place-items: center;
+  background: radial-gradient(circle at 30% 30%, rgba(201,169,97,.20), transparent 60%), linear-gradient(135deg, rgba(201,169,97,.14), rgba(74,42,106,.22));
+  border: 1px solid rgba(201,169,97,.35);
+  border-radius: 14px;
+  margin-bottom: 18px;
+  color: var(--gold-soft);
+}
+.feature-icon .ic { width: 24px; height: 24px; }
+.feature h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--gold-soft);
+  margin-bottom: 6px;
+}
+.feature p { color: var(--ink-mute); font-size: 13.5px; line-height: 1.6; }
+
+/* ═══════════ ГАЛЕРЕЯ ═══════════ */
+.gallery-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 28px; gap: 20px; flex-wrap: wrap;
+}
+.gallery-head h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px; font-weight: 700;
+  letter-spacing: -.6px;
+  line-height: 1.02;
+  background: linear-gradient(180deg, var(--gold-white) 0%, var(--gold) 55%, var(--gold-deep) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gallery-head p {
+  color: var(--ink-mute); font-size: 15px; margin-top: 8px;
+  font-style: italic; font-family: 'Cormorant Garamond', serif;
+}
+.gallery-filters {
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  margin-bottom: 28px;
+}
+.chip {
+  padding: 11px 24px;
+  background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(0,0,0,.1));
+  color: var(--ink-mute);
+  border: 1px solid var(--b-soft);
+  border-radius: 30px;
+  font-size: 13.5px; font-weight: 500;
+  transition: color .2s, border-color .2s, background .2s, box-shadow .2s;
+}
+.chip:hover { color: var(--gold-soft); border-color: var(--b-gold); }
+.chip.active {
+  color: #1a1206;
+  background: linear-gradient(160deg, var(--gold-glow), var(--gold) 60%, var(--gold-deep));
+  border-color: transparent;
+  font-weight: 700;
+  box-shadow: 0 4px 18px rgba(201,169,97,.4);
+}
+.toggle {
+  display: flex; align-items: center; gap: 10px;
+  margin-left: auto;
+  color: var(--ink-mute); font-size: 13.5px;
+  padding: 9px 18px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--b-soft);
+  border-radius: 30px;
+  cursor: pointer;
+  user-select: none;
+}
+.toggle:hover { border-color: var(--b-gold); }
+.toggle input {
+  appearance: none;
+  width: 36px; height: 20px;
+  background: var(--ink-faint);
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: background .2s;
+  flex-shrink: 0;
+}
+.toggle input::after {
+  content: '';
+  position: absolute; top: 2px; left: 2px;
+  width: 16px; height: 16px;
+  background: var(--ink-soft);
+  border-radius: 50%;
+  transition: left .2s, background .2s;
+}
+.toggle input:checked { background: var(--gold-deep); }
+.toggle input:checked::after {
+  left: 18px;
+  background: var(--gold-glow);
+  box-shadow: 0 0 8px rgba(244,224,168,.8);
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 22px;
+}
+.gallery-card {
+  position: relative;
+  border-radius: 12px;
+  padding: 16px 14px 14px;
+  background: radial-gradient(circle at 50% 15%, rgba(90,51,132,.08), transparent 65%), linear-gradient(165deg, #15102a 0%, #0a0715 100%);
+  border: 1px solid rgba(201,169,97,.28);
+  box-shadow: inset 0 0 0 1px rgba(201,169,97,.08), 0 8px 26px rgba(0,0,0,.45);
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  cursor: pointer;
+  display: flex; flex-direction: column; gap: 10px;
+  will-change: transform;
+}
+.gallery-card::before {
+  content: '';
+  position: absolute; inset: 6px;
+  border-radius: 8px;
+  border: 1px solid rgba(201,169,97,.12);
+  pointer-events: none;
+  z-index: 1;
+}
+.gallery-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(201,169,97,.50);
+  box-shadow: inset 0 0 0 1px rgba(201,169,97,.15), 0 18px 44px rgba(0,0,0,.6), 0 0 60px rgba(201,169,97,.10);
+}
+.gallery-card .corner-orn {
+  position: absolute;
+  width: 26px; height: 26px;
+  pointer-events: none;
+  z-index: 4;
+  color: rgba(201,169,97,.35);
+}
+.gallery-card .corner-orn.tl { top: 6px; left: 6px; }
+.gallery-card .corner-orn.tr { top: 6px; right: 6px; transform: scaleX(-1); }
+.gallery-card .corner-orn.bl { bottom: 6px; left: 6px; transform: scaleY(-1); }
+.gallery-card .corner-orn.br { bottom: 6px; right: 6px; transform: scale(-1, -1); }
+
+.gallery-card .art {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  display: grid; place-items: center;
+  background: radial-gradient(circle at 50% 45%, rgba(90,51,132,.14) 0%, transparent 55%), linear-gradient(180deg, #0f0a20 0%, #06040e 100%);
+  box-shadow: inset 0 0 0 1px rgba(201,169,97,.15), inset 0 0 60px rgba(0,0,0,.85);
+}
+.gallery-card .art::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 45%, transparent 40%, rgba(0,0,0,.80) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+.gallery-card .art svg { width: 100%; height: 100%; display: block; position: relative; z-index: 1; color: #b8a878; }
+.gallery-card.violet .art { background: radial-gradient(circle at 50% 45%, rgba(90,51,132,.22) 0%, transparent 55%), linear-gradient(180deg, #0f0a20 0%, #06040e 100%); }
+.gallery-card.crimson .art { background: radial-gradient(circle at 50% 45%, rgba(122,31,58,.20) 0%, transparent 55%), linear-gradient(180deg, #100610 0%, #06040e 100%); }
+.gallery-card.gold .art { background: radial-gradient(circle at 50% 45%, rgba(143,116,64,.18) 0%, transparent 55%), linear-gradient(180deg, #100c08 0%, #06040e 100%); }
+.gallery-card.deep .art { background: radial-gradient(circle at 50% 45%, rgba(70,40,100,.16) 0%, transparent 55%), linear-gradient(180deg, #0a0616 0%, #06040e 100%); }
+
+.gallery-card .text {
+  text-align: center;
+  padding: 2px 4px 0;
+  position: relative;
+}
+.gallery-card .text::before {
+  content: '';
+  position: absolute;
+  top: -5px; left: 25%; right: 25%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,169,97,.35), transparent);
+}
+.gallery-card .text h5 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--gold-soft);
+  margin-bottom: 3px;
+  line-height: 1.2;
+  letter-spacing: -.2px;
+}
+.gallery-card .text p {
+  font-size: 11px;
+  color: rgba(201,169,97,.5);
+  font-weight: 500;
+  letter-spacing: .5px;
+}
+
+/* ═══════════ ФУТЕР ═══════════ */
+footer {
+  position: relative;
+  border-top: 1px solid var(--b-mid);
+  padding: 52px 48px 30px;
+  background: linear-gradient(180deg, rgba(5,3,8,.5), rgba(5,3,8,.95));
+  margin-top: 20px;
+}
+footer::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 50%;
+  transform: translateX(-50%);
+  width: 320px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.footer-inner {
+  max-width: 1800px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 30px; flex-wrap: wrap;
+}
+.footer-inner .logo { font-size: 18px; }
+.footer-inner .logo-mark { width: 34px; height: 46px; }
+.footer-inner .logo-mark::before { font-size: 7px; }
+.footer-links { display: flex; gap: 30px; flex-wrap: wrap; }
+.footer-links a {
+  color: var(--ink-mute); font-size: 13px;
+  transition: color .2s;
+  position: relative;
+}
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width .25s;
+}
+.footer-links a:hover { color: var(--gold-soft); }
+.footer-links a:hover::after { width: 100%; }
+.copyright { color: var(--ink-faint); font-size: 12px; letter-spacing: .5px; }
+
+/* ═══════════ АДАПТИВ ═══════════ */
+@media (max-width: 1500px) {
+  .live-grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .bids-feed { display: none; }
+}
+@media (max-width: 1400px) {
+  .layout, .divider { padding: 0 32px; }
+  .divider::before { left: 32px; right: 32px; }
+  .topbar { padding: 0 32px; }
+}
+@media (max-width: 1100px) {
+  .main-nav { display: none; }
+  .topbar { padding: 0 20px; }
+  .topbar-inner { height: 64px; gap: 20px; }
+  .layout, .divider { padding: 0 20px; }
+  .divider::before { left: 20px; right: 20px; }
+  .live-grid { grid-template-columns: 1fr; }
+  .live-main { padding: 24px; }
+  .live-preview { height: 300px; }
+  .section-head h2 { font-size: 36px; }
+  .gallery-head h2 { font-size: 40px; }
+  .full-section { padding: 40px 0; }
+  footer { padding: 40px 20px 24px; }
+}
+@media (max-width: 700px) {
+  body { font-size: 14.5px; }
+  .topbar { padding: 0 14px; }
+  .topbar-inner { height: 60px; gap: 12px; }
+  .topbar-actions .icon-btn:not(.wallet) { display: none; }
+  .logo { font-size: 17px; gap: 10px; }
+  .logo-mark { width: 34px; height: 46px; }
+  .layout, .divider { padding: 0 16px; }
+  .divider::before { left: 16px; right: 16px; }
+  .section-head h2 { font-size: 27px; }
+  .gallery-head h2 { font-size: 32px; }
+  .full-section { padding: 30px 0; }
+  .hot-row { grid-template-columns: 1fr; gap: 20px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .slots { grid-template-columns: 1fr; }
+  .card-tarot, .gallery-card, .slot-card { will-change: auto; }
+  .live-preview { height: 260px; }
+  .live-info h3 { font-size: 24px; }
+  .bid-row strong { font-size: 22px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .gallery-card .text h5 { font-size: 15px; }
+  .gallery-card .text p { font-size: 10px; }
+  .footer-inner { flex-direction: column; text-align: center; gap: 22px; }
+}
+@media (max-width: 400px) {
+  .section-head h2 { font-size: 23px; }
+  .gallery-head h2 { font-size: 27px; }
+  .card-name { font-size: 18px; }
+  .gallery-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SVG-СПРАЙТ: ИЛЛЮМИНИРОВАННЫЕ ГРАВЮРЫ ТАРО
+     Каждая сцена — композиция из 100+ элементов
+     ═══════════════════════════════════════════════════════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+
+    <!-- ─── Тонкий угол-орнамент ─── -->
+    <symbol id="corner-orn" viewBox="0 0 30 30">
+      <g stroke="currentColor" fill="none" stroke-width=".8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 2 Q2 12 12 12 Q17 12 17 7 Q17 4 14 4 Q11 4 11 7"/>
+        <path d="M2 2 Q10 2 10 10"/>
+        <circle cx="16" cy="16" r=".6" fill="currentColor"/>
+        <circle cx="21" cy="11" r=".6" fill="currentColor"/>
+        <circle cx="11" cy="21" r=".6" fill="currentColor"/>
+      </g>
+    </symbol>
+
+    <!-- ─── ВЕРХНИЙ КАРТУШ (универсальный для всех карт) ─── -->
+    <symbol id="orn-cartouche" viewBox="0 0 100 16">
+      <g stroke="currentColor" fill="none" stroke-width=".6" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Основная линия -->
+        <path d="M8 8 Q30 8 50 8 Q70 8 92 8"/>
+        <!-- Центральный завиток -->
+        <path d="M50 8 Q47 4 50 3 Q53 4 50 8"/>
+        <path d="M50 8 Q47 12 50 13 Q53 12 50 8"/>
+        <!-- Боковые завитки -->
+        <path d="M30 8 Q28 5 26 6 Q24 8 26 10 Q28 11 30 8"/>
+        <path d="M70 8 Q72 5 74 6 Q76 8 74 10 Q72 11 70 8"/>
+        <!-- Точки -->
+        <circle cx="20" cy="8" r=".8" fill="currentColor"/>
+        <circle cx="80" cy="8" r=".8" fill="currentColor"/>
+        <!-- Концевые засечки -->
+        <path d="M8 5 L8 11"/>
+        <path d="M92 5 L92 11"/>
+      </g>
+    </symbol>
+
+    <!-- ─── НИЖНЯЯ ЛЕНТА-СКРОЛЛ ─── -->
+    <symbol id="orn-scroll" viewBox="0 0 100 12">
+      <g stroke="currentColor" fill="none" stroke-width=".6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 6 Q20 2 34 6 Q48 10 62 6 Q76 2 94 6"/>
+        <path d="M6 6 Q20 10 34 6 Q48 2 62 6 Q76 10 94 6" opacity=".6"/>
+        <circle cx="50" cy="6" r="1.2" fill="currentColor"/>
+        <path d="M40 6 L44 6 M56 6 L60 6"/>
+      </g>
+    </symbol>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ЗВЕЗДА — иллюминированная гравюра
+         ═══════════════════════════════════════════════════════ -->
+    <symbol id="sc-star" viewBox="0 0 100 130">
+      <!-- ВНЕШНЯЯ РАМКА-ПОРТАЛ -->
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".35">
+        <rect x="5" y="9" width="90" height="112" rx="2"/>
+        <rect x="8" y="12" width="84" height="106" rx="1" stroke-dasharray="1 4"/>
+      </g>
+      <!-- Точки-гвоздики по углам -->
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="9" cy="13" r="1"/>
+        <circle cx="91" cy="13" r="1"/>
+        <circle cx="9" cy="117" r="1"/>
+        <circle cx="91" cy="117" r="1"/>
+      </g>
+      <!-- Уголки-флероны -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".5" stroke-linecap="round">
+        <path d="M5 9 Q10 9 10 5"/>
+        <path d="M95 9 Q90 9 90 5"/>
+        <path d="M5 121 Q10 121 10 125"/>
+        <path d="M95 121 Q90 121 90 125"/>
+      </g>
+
+      <!-- ВЕРХНИЙ КАРТУШ -->
+      <use href="#orn-cartouche" x="5" y="10" width="90" height="14" opacity=".45"/>
+
+      <!-- БОКОВЫЕ КОЛОННЫ -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".45">
+        <path d="M14 28 L14 110 M18 28 L18 110"/>
+        <path d="M82 28 L82 110 M86 28 L86 110"/>
+        <!-- Капители -->
+        <path d="M12 28 L20 28 M12 32 L20 32 M80 28 L88 28 M80 32 L88 32"/>
+        <!-- Базы -->
+        <path d="M12 106 L20 106 M12 110 L20 110 M80 106 L88 106 M80 110 L88 110"/>
+      </g>
+
+      <!-- МАНДАЛА-ФОН: 4 круга -->
+      <g stroke="currentColor" fill="none" opacity=".35">
+        <circle cx="50" cy="68" r="40" stroke-width=".4"/>
+        <circle cx="50" cy="68" r="34" stroke-width=".4" stroke-dasharray="2 3"/>
+        <circle cx="50" cy="68" r="28" stroke-width=".4"/>
+      </g>
+
+      <!-- 12 ДЕЛЕНИЙ КОМПАСА -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".55" stroke-linecap="round">
+        <path d="M50 28 L50 33 M71 37 L68 41 M82 58 L78 61 M82 78 L78 75 M71 99 L68 95 M50 108 L50 103 M29 99 L32 95 M18 78 L22 75 M18 58 L22 61 M29 37 L32 41"/>
+      </g>
+
+      <!-- ВНЕШНИЕ ЛУЧИ-ИСКРЫ -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".6" stroke-linecap="round">
+        <path d="M50 16 L50 24 M50 112 L50 120"/>
+        <path d="M8 68 L16 68 M84 68 L92 68"/>
+        <path d="M19 33 L26 40 M81 33 L74 40 M19 103 L26 96 M81 103 L74 96"/>
+      </g>
+
+      <!-- МАЛЫЕ ЛУЧИ -->
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".7" stroke-linecap="round">
+        <path d="M30 22 L33 28 M70 22 L67 28 M30 114 L33 108 M70 114 L67 108"/>
+        <path d="M13 50 L19 52 M13 86 L19 84 M87 50 L81 52 M87 86 L81 84"/>
+      </g>
+
+      <!-- ОСНОВНАЯ ЗВЕЗДА — 8-конечная, двойной контур -->
+      <g stroke="currentColor" fill="none" stroke-width="1.4" stroke-linejoin="round">
+        <path d="M50 36 L53 63 L79 68 L53 73 L50 100 L47 73 L21 68 L47 63 Z"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".7" stroke-linejoin="round">
+        <path d="M50 36 L53 63 L79 68 L53 73 L50 100 L47 73 L21 68 L47 63 Z" transform="translate(1 1)" stroke-dasharray="1 2"/>
+      </g>
+
+      <!-- ВТОРАЯ ЗВЕЗДА — 45° поворот -->
+      <g stroke="currentColor" fill="none" stroke-width=".8" stroke-linejoin="round" opacity=".7">
+        <path d="M50 36 L53 63 L79 68 L53 73 L50 100 L47 73 L21 68 L47 63 Z" transform="rotate(45 50 68)"/>
+      </g>
+
+      <!-- КОНЦЕНТРИЧЕСКИЕ КРУГИ -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".65">
+        <circle cx="50" cy="68" r="10"/>
+        <circle cx="50" cy="68" r="7"/>
+        <circle cx="50" cy="68" r="4"/>
+      </g>
+
+      <!-- ГЛАЗ В ЦЕНТРЕ -->
+      <path d="M44 68 Q50 63 56 68 Q50 73 44 68 Z" stroke="currentColor" fill="none" stroke-width=".9"/>
+      <circle cx="50" cy="68" r="1.5" fill="currentColor" stroke="none"/>
+      <path d="M50 62 L50 65 M50 71 L50 74 M44 68 L47 68 M53 68 L56 68" stroke="currentColor" fill="none" stroke-width=".4" opacity=".6"/>
+
+      <!-- СВЯЗЬ ЗВЁЗД (созвездие из микро-точек) -->
+      <g stroke="currentColor" fill="none" stroke-width=".3" opacity=".5" stroke-dasharray="1 2">
+        <path d="M35 45 L50 36 L65 45"/>
+        <path d="M35 91 L50 100 L65 91"/>
+        <path d="M22 68 L35 45 M78 68 L65 45"/>
+        <path d="M22 68 L35 91 M78 68 L65 91"/>
+      </g>
+
+      <!-- МИКРО-ЗВЁЗДЫ -->
+      <g fill="currentColor" stroke="none" opacity=".6">
+        <circle cx="50" cy="20" r=".8"/>
+        <circle cx="50" cy="116" r=".8"/>
+        <circle cx="12" cy="68" r=".8"/>
+        <circle cx="88" cy="68" r=".8"/>
+        <circle cx="35" cy="45" r=".6"/>
+        <circle cx="65" cy="45" r=".6"/>
+        <circle cx="35" cy="91" r=".6"/>
+        <circle cx="65" cy="91" r=".6"/>
+      </g>
+
+      <!-- НИЖНЯЯ ЛЕНТА-СКРОЛЛ -->
+      <use href="#orn-scroll" x="10" y="115" width="80" height="10" opacity=".5"/>
+    </symbol>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ЛУНА — иллюминированная гравюра
+         ═══════════════════════════════════════════════════════ -->
+    <symbol id="sc-moon" viewBox="0 0 100 130">
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".35">
+        <rect x="5" y="9" width="90" height="112" rx="2"/>
+        <rect x="8" y="12" width="84" height="106" rx="1" stroke-dasharray="1 4"/>
+      </g>
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="9" cy="13" r="1"/>
+        <circle cx="91" cy="13" r="1"/>
+        <circle cx="9" cy="117" r="1"/>
+        <circle cx="91" cy="117" r="1"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".5" stroke-linecap="round">
+        <path d="M5 9 Q10 9 10 5"/>
+        <path d="M95 9 Q90 9 90 5"/>
+        <path d="M5 121 Q10 121 10 125"/>
+        <path d="M95 121 Q90 121 90 125"/>
+      </g>
+
+      <use href="#orn-cartouche" x="5" y="10" width="90" height="14" opacity=".45"/>
+
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".45">
+        <path d="M14 28 L14 110 M18 28 L18 110"/>
+        <path d="M82 28 L82 110 M86 28 L86 110"/>
+        <path d="M12 28 L20 28 M12 32 L20 32 M80 28 L88 28 M80 32 L88 32"/>
+        <path d="M12 106 L20 106 M12 110 L20 110 M80 106 L88 106 M80 110 L88 110"/>
+      </g>
+
+      <g stroke="currentColor" fill="none" opacity=".35">
+        <circle cx="50" cy="68" r="40" stroke-width=".4"/>
+        <circle cx="50" cy="68" r="34" stroke-width=".4" stroke-dasharray="2 3"/>
+      </g>
+
+      <!-- 12 делений -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".55" stroke-linecap="round">
+        <path d="M50 28 L50 33 M82 58 L78 61 M82 78 L78 75 M50 108 L50 103 M18 78 L22 75 M18 58 L22 61"/>
+        <path d="M71 37 L68 41 M71 99 L68 95 M29 99 L32 95 M29 37 L32 41"/>
+      </g>
+
+      <!-- Внешние лучи -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".6" stroke-linecap="round">
+        <path d="M50 16 L50 24 M50 112 L50 120"/>
+        <path d="M8 68 L16 68 M84 68 L92 68"/>
+        <path d="M19 33 L26 40 M81 33 L74 40"/>
+      </g>
+
+      <!-- ОБЛАКА снизу — трёхслойные -->
+      <g stroke="currentColor" fill="none" stroke-width=".6" opacity=".55">
+        <path d="M18 108 Q24 103 30 106 Q36 101 42 105 Q48 99 54 105 Q60 101 66 106 Q72 103 78 108"/>
+        <path d="M22 113 Q28 110 34 112 Q40 109 46 112 Q52 109 58 112 Q64 110 70 113"/>
+        <path d="M26 118 Q32 116 38 117 Q44 115 50 117 Q56 115 62 117 Q68 116 74 118"/>
+      </g>
+
+      <!-- ЛУНА — большая, двойной контур -->
+      <g stroke="currentColor" fill="none" stroke-width="1.3" stroke-linejoin="round">
+        <path d="M62 30 A30 30 0 1 0 62 102 A24 24 0 0 1 62 30 Z"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".6" stroke-linejoin="round">
+        <path d="M62 30 A30 30 0 0 0 62 102 A24 24 0 0 1 62 30 Z"/>
+      </g>
+
+      <!-- Внутренние концентрические дуги -->
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".5">
+        <path d="M66 38 A24 24 0 0 0 66 94" stroke-dasharray="2 2"/>
+      </g>
+
+      <!-- КРАТЕРЫ -->
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="70" cy="44" r="2.2"/>
+        <circle cx="76" cy="58" r="1.3"/>
+        <circle cx="73" cy="74" r="2.2"/>
+        <circle cx="68" cy="88" r="1.2"/>
+        <circle cx="80" cy="68" r="1"/>
+        <circle cx="78" cy="48" r=".7"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".5">
+        <circle cx="70" cy="44" r="3.2"/>
+        <circle cx="73" cy="74" r="3.2"/>
+      </g>
+
+      <!-- ЛИЦО-ПРОФИЛЬ -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".6">
+        <path d="M76 52 Q78 56 76 60"/>
+        <path d="M78 66 Q80 68 78 70"/>
+      </g>
+
+      <!-- 3 ЗВЕЗДЫ вокруг -->
+      <g stroke="currentColor" fill="none" stroke-width=".9">
+        <path d="M28 44 L30 48 L34 50 L30 52 L28 56 L26 52 L22 50 L26 48 Z"/>
+        <path d="M22 70 L23 73 L26 74 L23 75 L22 78 L21 75 L18 74 L21 73 Z"/>
+        <path d="M26 86 L27 88 L29 89 L27 90 L26 92 L25 90 L23 89 L25 88 Z"/>
+      </g>
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="32" cy="32" r=".9"/>
+        <circle cx="18" cy="58" r=".9"/>
+        <circle cx="30" cy="64" r=".7"/>
+        <circle cx="20" cy="82" r=".7"/>
+      </g>
+
+      <!-- КАПЛИ-РОСИНКИ -->
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".5" stroke-linecap="round">
+        <path d="M26 32 L26 35"/>
+        <path d="M36 24 L36 27"/>
+        <path d="M22 46 L22 49"/>
+      </g>
+
+      <use href="#orn-scroll" x="10" y="115" width="80" height="10" opacity=".5"/>
+    </symbol>
+
+    <!-- ═══════════════════════════════════════════════════════
+         СОЛНЦЕ — иллюминированная гравюра
+         ═══════════════════════════════════════════════════════ -->
+    <symbol id="sc-sun" viewBox="0 0 100 130">
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".35">
+        <rect x="5" y="9" width="90" height="112" rx="2"/>
+        <rect x="8" y="12" width="84" height="106" rx="1" stroke-dasharray="1 4"/>
+      </g>
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="9" cy="13" r="1"/>
+        <circle cx="91" cy="13" r="1"/>
+        <circle cx="9" cy="117" r="1"/>
+        <circle cx="91" cy="117" r="1"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".5" stroke-linecap="round">
+        <path d="M5 9 Q10 9 10 5"/>
+        <path d="M95 9 Q90 9 90 5"/>
+        <path d="M5 121 Q10 121 10 125"/>
+        <path d="M95 121 Q90 121 90 125"/>
+      </g>
+
+      <use href="#orn-cartouche" x="5" y="10" width="90" height="14" opacity=".45"/>
+
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".45">
+        <path d="M14 28 L14 110 M18 28 L18 110"/>
+        <path d="M82 28 L82 110 M86 28 L86 110"/>
+        <path d="M12 28 L20 28 M12 32 L20 32 M80 28 L88 28 M80 32 L88 32"/>
+        <path d="M12 106 L20 106 M12 110 L20 110 M80 106 L88 106 M80 110 L88 110"/>
+      </g>
+
+      <g stroke="currentColor" fill="none" opacity=".35">
+        <circle cx="50" cy="68" r="42" stroke-width=".4"/>
+        <circle cx="50" cy="68" r="36" stroke-width=".4" stroke-dasharray="2 3"/>
+        <circle cx="50" cy="68" r="30" stroke-width=".4"/>
+      </g>
+
+      <!-- 12 делений зодиака -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".55" stroke-linecap="round">
+        <path d="M50 24 L50 28 M82 52 L78 55 M82 84 L78 81 M50 112 L50 108 M18 84 L22 81 M18 52 L22 55"/>
+        <path d="M71 33 L68 36 M71 103 L68 100 M29 103 L32 100 M29 33 L32 36"/>
+        <path d="M88 68 L83 68 M12 68 L17 68"/>
+      </g>
+
+      <!-- Внешние длинные лучи (12) -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".55" stroke-linecap="round">
+        <path d="M50 12 L50 22 M50 114 L50 124"/>
+        <path d="M7 68 L17 68 M83 68 L93 68"/>
+        <path d="M17 35 L24 42 M83 35 L76 42 M17 101 L24 94 M83 101 L76 94"/>
+        <path d="M25 20 L31 27 M75 20 L69 27 M25 116 L31 109 M75 116 L69 109"/>
+      </g>
+
+      <!-- Средние лучи (12) -->
+      <g stroke="currentColor" fill="none" stroke-width=".8" stroke-linecap="round">
+        <path d="M50 24 L50 32 M50 104 L50 112"/>
+        <path d="M13 68 L21 68 M79 68 L87 68"/>
+        <path d="M22 40 L28 46 M78 40 L72 46 M22 96 L28 90 M78 96 L72 90"/>
+      </g>
+
+      <!-- Внутренние лучи (8) -->
+      <g stroke="currentColor" fill="none" stroke-width="1" stroke-linecap="round">
+        <path d="M50 36 L50 44 M50 92 L50 100"/>
+        <path d="M24 68 L32 68 M68 68 L76 68"/>
+        <path d="M34 52 L40 58 M66 52 L60 58 M34 84 L40 78 M66 84 L60 78"/>
+      </g>
+
+      <!-- СОЛНЦЕ -->
+      <g stroke="currentColor" fill="none" stroke-width="1.4">
+        <circle cx="50" cy="68" r="17"/>
+        <circle cx="50" cy="68" r="14" stroke-width=".5" opacity=".7"/>
+        <circle cx="50" cy="68" r="11" stroke-width=".4" opacity=".5" stroke-dasharray="2 2"/>
+      </g>
+      <!-- ЛИЦО -->
+      <g stroke="currentColor" fill="none" stroke-width=".8">
+        <circle cx="45" cy="64" r="1.2" fill="currentColor"/>
+        <circle cx="55" cy="64" r="1.2" fill="currentColor"/>
+        <path d="M44 74 Q50 78 56 74"/>
+        <path d="M47 77 Q50 80 53 77"/>
+        <path d="M45 60 Q46 58 47 60"/>
+        <path d="M53 60 Q54 58 55 60"/>
+      </g>
+      <!-- Малые солнца-искры по углам -->
+      <g stroke="currentColor" fill="none" stroke-width=".7">
+        <path d="M22 34 L23 37 L26 38 L23 39 L22 42 L21 39 L18 38 L21 37 Z"/>
+        <path d="M78 34 L79 37 L82 38 L79 39 L78 42 L77 39 L74 38 L77 37 Z"/>
+        <path d="M22 100 L23 103 L26 104 L23 105 L22 108 L21 105 L18 104 L21 103 Z"/>
+        <path d="M78 100 L79 103 L82 104 L79 105 L78 108 L77 105 L74 104 L77 103 Z"/>
+      </g>
+
+      <use href="#orn-scroll" x="10" y="115" width="80" height="10" opacity=".5"/>
+    </symbol>
+
+    <!-- ═══════════════════════════════════════════════════════
+         КОЛЕСО ФОРТУНЫ — иллюминированная гравюра
+         ═══════════════════════════════════════════════════════ -->
+    <symbol id="sc-wheel" viewBox="0 0 100 130">
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".35">
+        <rect x="5" y="9" width="90" height="112" rx="2"/>
+        <rect x="8" y="12" width="84" height="106" rx="1" stroke-dasharray="1 4"/>
+      </g>
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="9" cy="13" r="1"/>
+        <circle cx="91" cy="13" r="1"/>
+        <circle cx="9" cy="117" r="1"/>
+        <circle cx="91" cy="117" r="1"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".5" stroke-linecap="round">
+        <path d="M5 9 Q10 9 10 5"/>
+        <path d="M95 9 Q90 9 90 5"/>
+        <path d="M5 121 Q10 121 10 125"/>
+        <path d="M95 121 Q90 121 90 125"/>
+      </g>
+
+      <use href="#orn-cartouche" x="5" y="10" width="90" height="14" opacity=".45"/>
+
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".45">
+        <path d="M14 28 L14 110 M18 28 L18 110"/>
+        <path d="M82 28 L82 110 M86 28 L86 110"/>
+        <path d="M12 28 L20 28 M12 32 L20 32 M80 28 L88 28 M80 32 L88 32"/>
+        <path d="M12 106 L20 106 M12 110 L20 110 M80 106 L88 106 M80 110 L88 110"/>
+      </g>
+
+      <g stroke="currentColor" fill="none" opacity=".35">
+        <circle cx="50" cy="68" r="44" stroke-width=".4"/>
+      </g>
+
+      <!-- 4 СТИХИИ ПО УГЛАМ -->
+      <g stroke="currentColor" fill="none" stroke-width=".7" opacity=".6">
+        <!-- Алхимия -->
+        <path d="M18 24 L22 20 M20 22 L24 26"/>
+        <!-- Звезда -->
+        <path d="M78 22 L80 25 L83 26 L80 27 L78 30 L76 27 L73 26 L76 25 Z"/>
+        <!-- Полумесяц -->
+        <path d="M18 110 Q14 114 18 118 Q22 114 18 110"/>
+        <!-- Пламя -->
+        <path d="M82 110 Q80 114 82 118 Q84 114 82 110"/>
+      </g>
+
+      <!-- ВНЕШНЕЕ КОЛЬЦО с 12 делениями -->
+      <circle cx="50" cy="68" r="40" stroke="currentColor" fill="none" stroke-width=".6" opacity=".55"/>
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".55" stroke-linecap="round">
+        <path d="M50 28 L50 33 M50 103 L50 108"/>
+        <path d="M90 68 L85 68 M15 68 L10 68"/>
+        <path d="M78 40 L75 44 M78 96 L75 92 M22 96 L25 92 M22 40 L25 44"/>
+        <path d="M68 28 L67 33 M68 108 L67 103 M32 108 L33 103 M32 28 L33 33"/>
+        <path d="M85 54 L81 56 M85 82 L81 80 M15 82 L19 80 M15 54 L19 56"/>
+      </g>
+
+      <!-- КОЛЕСО: 5 колец -->
+      <circle cx="50" cy="68" r="34" stroke="currentColor" fill="none" stroke-width="1.3"/>
+      <circle cx="50" cy="68" r="27" stroke="currentColor" fill="none" stroke-width=".5" stroke-dasharray="2 2" opacity=".6"/>
+      <circle cx="50" cy="68" r="21" stroke="currentColor" fill="none" stroke-width=".9"/>
+      <circle cx="50" cy="68" r="14" stroke="currentColor" fill="none" stroke-width="1"/>
+      <circle cx="50" cy="68" r="7" stroke="currentColor" fill="none" stroke-width="1.2"/>
+
+      <!-- 8 СПИЦ -->
+      <g stroke="currentColor" fill="none" stroke-width="1" stroke-linecap="round">
+        <path d="M50 34 L50 47 M50 89 L50 102"/>
+        <path d="M16 68 L29 68 M71 68 L84 68"/>
+        <path d="M26 44 L35 53 M74 44 L65 53 M26 92 L35 83 M74 92 L65 83"/>
+      </g>
+
+      <!-- ЦЕНТР — малая мандала -->
+      <circle cx="50" cy="68" r="2.5" fill="currentColor" stroke="none"/>
+      <g stroke="currentColor" fill="none" stroke-width=".4" stroke-linecap="round">
+        <path d="M50 60 L50 63 M50 73 L50 76 M42 68 L45 68 M55 68 L58 68"/>
+      </g>
+
+      <!-- МИКРО-ТОЧКИ в вершинах -->
+      <g fill="currentColor" stroke="none" opacity=".65">
+        <circle cx="50" cy="28" r="1.2"/>
+        <circle cx="50" cy="108" r="1.2"/>
+        <circle cx="10" cy="68" r="1.2"/>
+        <circle cx="90" cy="68" r="1.2"/>
+      </g>
+
+      <!-- 4 СИМВОЛА ПО КРУГУ (между делениями) -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".5">
+        <path d="M40 24 L42 22 L44 24 M40 24 L44 24"/>
+        <path d="M56 24 L58 22 L60 24 M56 24 L60 24"/>
+        <path d="M40 112 L42 114 L44 112 M40 112 L44 112"/>
+        <path d="M56 112 L58 114 L60 112 M56 112 L60 112"/>
+      </g>
+
+      <use href="#orn-scroll" x="10" y="115" width="80" height="10" opacity=".5"/>
+    </symbol>
+
+    <!-- ═══════════════════════════════════════════════════════
+         БАШНЯ — иллюминированная гравюра
+         ═══════════════════════════════════════════════════════ -->
+    <symbol id="sc-tower" viewBox="0 0 100 130">
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".35">
+        <rect x="5" y="9" width="90" height="112" rx="2"/>
+        <rect x="8" y="12" width="84" height="106" rx="1" stroke-dasharray="1 4"/>
+      </g>
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="9" cy="13" r="1"/>
+        <circle cx="91" cy="13" r="1"/>
+        <circle cx="9" cy="117" r="1"/>
+        <circle cx="91" cy="117" r="1"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".5" stroke-linecap="round">
+        <path d="M5 9 Q10 9 10 5"/>
+        <path d="M95 9 Q90 9 90 5"/>
+        <path d="M5 121 Q10 121 10 125"/>
+        <path d="M95 121 Q90 121 90 125"/>
+      </g>
+
+      <use href="#orn-cartouche" x="5" y="10" width="90" height="14" opacity=".45"/>
+
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".45">
+        <path d="M14 28 L14 110 M18 28 L18 110"/>
+        <path d="M82 28 L82 110 M86 28 L86 110"/>
+        <path d="M12 28 L20 28 M12 32 L20 32 M80 28 L88 28 M80 32 L88 32"/>
+        <path d="M12 106 L20 106 M12 110 L20 110 M80 106 L88 106 M80 110 L88 110"/>
+      </g>
+
+      <g stroke="currentColor" fill="none" opacity=".35">
+        <circle cx="50" cy="68" r="42" stroke-width=".4"/>
+        <circle cx="50" cy="68" r="36" stroke-width=".4" stroke-dasharray="2 3"/>
+      </g>
+
+      <!-- МОЛНИЯ — тройная -->
+      <path d="M50 20 L43 42 L50 42 L43 64 L57 40 L50 40 L57 20 Z" stroke="currentColor" fill="none" stroke-width="1.3" stroke-linejoin="round"/>
+      <path d="M50 20 L43 42 L50 42 L43 64 L57 40 L50 40 L57 20 Z" stroke="currentColor" fill="none" stroke-width=".4" opacity=".5" transform="translate(-2 -2)"/>
+      <path d="M50 20 L43 42 L50 42 L43 64 L57 40 L50 40 L57 20 Z" stroke="currentColor" fill="none" stroke-width=".4" opacity=".5" transform="translate(2 2)"/>
+
+      <!-- Лучи-искры -->
+      <g stroke="currentColor" fill="none" stroke-width=".7" opacity=".7" stroke-linecap="round">
+        <path d="M32 24 L28 20 M68 24 L72 20 M20 32 L16 28 M80 32 L84 28"/>
+        <path d="M28 46 L24 44 M72 46 L76 44"/>
+      </g>
+
+      <!-- БАШНЯ -->
+      <g stroke="currentColor" fill="none" stroke-width="1.3" stroke-linejoin="round">
+        <path d="M30 108 L30 54 L38 48 L42 60 L50 52 L58 60 L62 48 L70 54 L70 108 Z"/>
+      </g>
+      <!-- Двойной контур башни -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".6" stroke-linejoin="round">
+        <path d="M32 108 L32 56 L38 50 L42 62 L50 54 L58 62 L62 50 L68 56 L68 108"/>
+      </g>
+
+      <!-- ЗУБЦЫ-КОРОНЫ сверху -->
+      <path d="M38 48 L38 40 M42 60 L42 42 M50 52 L50 38 M58 60 L58 42 M62 48 L62 40" stroke="currentColor" fill="none" stroke-width="1.1"/>
+      <path d="M36 40 L40 40 M40 42 L44 42 M48 38 L52 38 M56 42 L60 42 M60 40 L64 40" stroke="currentColor" fill="none" stroke-width=".8"/>
+
+      <!-- БАЗА -->
+      <path d="M26 108 L74 108" stroke="currentColor" fill="none" stroke-width="1.4"/>
+      <path d="M28 112 L72 112" stroke="currentColor" fill="none" stroke-width=".5" opacity=".6"/>
+      <path d="M30 116 L70 116" stroke="currentColor" fill="none" stroke-width=".4" opacity=".4"/>
+
+      <!-- 2 ОКНА-ЗИГЗАГА (по 3 зигзага) -->
+      <g stroke="currentColor" fill="none" stroke-width=".9">
+        <path d="M40 70 L43 73 L40 76 L43 79 L40 82 L43 85"/>
+        <path d="M60 70 L57 73 L60 76 L57 79 L60 82 L57 85"/>
+      </g>
+      <!-- Верхние окна -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".7">
+        <path d="M44 56 L46 58 L44 60"/>
+        <path d="M56 56 L54 58 L56 60"/>
+      </g>
+
+      <!-- ВОРОТА с замком -->
+      <path d="M44 108 L44 96 A6 6 0 0 1 56 96 L56 108" stroke="currentColor" fill="none" stroke-width="1.1"/>
+      <circle cx="50" cy="100" r="1.5" fill="currentColor" stroke="none"/>
+      <path d="M50 101 L50 104" stroke="currentColor" fill="none" stroke-width=".5"/>
+
+      <!-- ПАДАЮЩАЯ КОРОНА -->
+      <g stroke="currentColor" fill="none" stroke-width="1" opacity=".85" transform="rotate(35 22 30)">
+        <path d="M14 34 L14 24 L18 28 L22 20 L26 28 L30 24 L30 34 Z"/>
+        <circle cx="14" cy="24" r=".9" fill="currentColor"/>
+        <circle cx="22" cy="20" r=".9" fill="currentColor"/>
+        <circle cx="30" cy="24" r=".9" fill="currentColor"/>
+      </g>
+
+      <!-- ЗВЁЗДЫ вокруг -->
+      <g stroke="currentColor" fill="none" stroke-width=".8" opacity=".7">
+        <path d="M22 48 L23 51 L26 52 L23 53 L22 56 L21 53 L18 52 L21 51 Z"/>
+        <path d="M78 48 L79 51 L82 52 L79 53 L78 56 L77 53 L74 52 L77 51 Z"/>
+        <path d="M22 78 L23 80 L25 81 L23 82 L22 84 L21 82 L19 81 L21 80 Z"/>
+        <path d="M78 78 L79 80 L81 81 L79 82 L78 84 L77 82 L75 81 L77 80 Z"/>
+      </g>
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="20" cy="68" r=".8"/>
+        <circle cx="80" cy="68" r=".8"/>
+        <circle cx="26" cy="88" r=".7"/>
+        <circle cx="74" cy="88" r=".7"/>
+      </g>
+
+      <use href="#orn-scroll" x="10" y="115" width="80" height="10" opacity=".5"/>
+    </symbol>
+
+    <!-- ═══════════════════════════════════════════════════════
+         МЕЧ — иллюминированная гравюра
+         ═══════════════════════════════════════════════════════ -->
+    <symbol id="sc-sword" viewBox="0 0 100 130">
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".35">
+        <rect x="5" y="9" width="90" height="112" rx="2"/>
+        <rect x="8" y="12" width="84" height="106" rx="1" stroke-dasharray="1 4"/>
+      </g>
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="9" cy="13" r="1"/>
+        <circle cx="91" cy="13" r="1"/>
+        <circle cx="9" cy="117" r="1"/>
+        <circle cx="91" cy="117" r="1"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".5" stroke-linecap="round">
+        <path d="M5 9 Q10 9 10 5"/>
+        <path d="M95 9 Q90 9 90 5"/>
+        <path d="M5 121 Q10 121 10 125"/>
+        <path d="M95 121 Q90 121 90 125"/>
+      </g>
+
+      <use href="#orn-cartouche" x="5" y="10" width="90" height="14" opacity=".45"/>
+
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".45">
+        <path d="M14 28 L14 110 M18 28 L18 110"/>
+        <path d="M82 28 L82 110 M86 28 L86 110"/>
+        <path d="M12 28 L20 28 M12 32 L20 32 M80 28 L88 28 M80 32 L88 32"/>
+        <path d="M12 106 L20 106 M12 110 L20 110 M80 106 L88 106 M80 110 L88 110"/>
+      </g>
+
+      <g stroke="currentColor" fill="none" opacity=".35">
+        <circle cx="50" cy="68" r="42" stroke-width=".4"/>
+        <circle cx="50" cy="68" r="36" stroke-width=".4" stroke-dasharray="2 3"/>
+      </g>
+
+      <!-- 12-позиционные деления -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".55" stroke-linecap="round">
+        <path d="M50 24 L50 28 M50 108 L50 112"/>
+        <path d="M84 68 L80 68 M16 68 L20 68"/>
+        <path d="M82 36 L79 39 M82 100 L79 97 M18 100 L21 97 M18 36 L21 39"/>
+        <path d="M71 27 L68 32 M71 109 L68 104 M29 109 L32 104 M29 27 L32 32"/>
+      </g>
+
+      <!-- Внешние лучи -->
+      <g stroke="currentColor" fill="none" stroke-width=".6" opacity=".55" stroke-linecap="round">
+        <path d="M50 12 L50 22 M50 114 L50 124"/>
+        <path d="M8 68 L18 68 M82 68 L92 68"/>
+        <path d="M19 33 L26 40 M81 33 L74 40 M19 103 L26 96 M81 103 L74 96"/>
+      </g>
+
+      <!-- ЗВЁЗДЫ-СПУТНИКИ -->
+      <g stroke="currentColor" fill="none" stroke-width=".9">
+        <path d="M22 44 L24 48 L28 50 L24 52 L22 56 L20 52 L16 50 L20 48 Z"/>
+        <path d="M78 44 L80 48 L84 50 L80 52 L78 56 L76 52 L72 50 L76 48 Z"/>
+        <path d="M22 82 L23 85 L26 86 L23 87 L22 90 L21 87 L18 86 L21 85 Z"/>
+        <path d="M78 82 L79 85 L82 86 L79 87 L78 90 L77 87 L74 86 L77 85 Z"/>
+      </g>
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="26" cy="30" r=".8"/>
+        <circle cx="74" cy="30" r=".8"/>
+        <circle cx="26" cy="106" r=".8"/>
+        <circle cx="74" cy="106" r=".8"/>
+      </g>
+
+      <!-- КОРОНА НАД МЕЧОМ -->
+      <g stroke="currentColor" fill="none" stroke-width="1.1" stroke-linejoin="round">
+        <path d="M50 4 L40 12 L43 20 L50 15 L57 20 L60 12 Z"/>
+        <circle cx="40" cy="12" r="1" fill="currentColor"/>
+        <circle cx="50" cy="15" r="1.2" fill="currentColor"/>
+        <circle cx="60" cy="12" r="1" fill="currentColor"/>
+      </g>
+      <path d="M40 12 L40 8 M50 15 L50 4 M60 12 L60 8" stroke="currentColor" fill="none" stroke-width=".5" opacity=".7"/>
+
+      <!-- КЛИНОК с засечками -->
+      <g stroke="currentColor" fill="none" stroke-width="1.3" stroke-linejoin="round">
+        <path d="M50 26 L54 34 L54 86 L46 86 L46 34 Z"/>
+      </g>
+      <!-- Дол (центральная борозда) -->
+      <path d="M50 30 L50 84" stroke="currentColor" fill="none" stroke-width=".4" opacity=".6"/>
+      <!-- Боковые тонкие линии -->
+      <path d="M47 38 L47 82 M53 38 L53 82" stroke="currentColor" fill="none" stroke-width=".3" opacity=".5"/>
+      <!-- Доп. насечки -->
+      <g stroke="currentColor" fill="none" stroke-width=".3" opacity=".4">
+        <path d="M48 44 L52 44 M48 50 L52 50 M48 56 L52 56 M48 62 L52 62 M48 68 L52 68 M48 74 L52 74 M48 80 L52 80"/>
+      </g>
+
+      <!-- ГАРДА -->
+      <path d="M28 90 L72 90" stroke="currentColor" fill="none" stroke-width="1.3"/>
+      <path d="M28 88 L28 92 M72 88 L72 92" stroke="currentColor" fill="none" stroke-width=".8"/>
+      <!-- Ромбы на концах -->
+      <path d="M30 90 L34 86 L38 90 L34 94 Z" stroke="currentColor" fill="none" stroke-width=".7"/>
+      <path d="M62 90 L66 86 L70 90 L66 94 Z" stroke="currentColor" fill="none" stroke-width=".7"/>
+      <!-- Рубин в центре -->
+      <circle cx="50" cy="90" r="2.5" stroke="currentColor" fill="none" stroke-width=".9"/>
+      <circle cx="50" cy="90" r="1" fill="currentColor" stroke="none"/>
+
+      <!-- РУКОЯТЬ -->
+      <path d="M46 94 L54 94 L54 104 L46 104 Z" stroke="currentColor" fill="none" stroke-width="1"/>
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".7">
+        <path d="M46 96 L54 96 M46 98 L54 98 M46 100 L54 100 M46 102 L54 102"/>
+      </g>
+      <!-- Диагональная навивка -->
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".5">
+        <path d="M46 96 L54 98 M46 98 L54 100 M46 100 L54 102"/>
+      </g>
+
+      <!-- НАВЕРШИЕ -->
+      <path d="M43 112 L57 112 L54 108 L46 108 Z" stroke="currentColor" fill="none" stroke-width="1"/>
+      <circle cx="50" cy="115" r="2" fill="currentColor" stroke="none"/>
+      <path d="M50 112 L50 108" stroke="currentColor" fill="none" stroke-width=".4"/>
+
+      <use href="#orn-scroll" x="10" y="118" width="80" height="8" opacity=".5"/>
+    </symbol>
+
+    <!-- ═══════════════════════════════════════════════════════
+         КУБОК — иллюминированная гравюра
+         ═══════════════════════════════════════════════════════ -->
+    <symbol id="sc-cup" viewBox="0 0 100 130">
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".35">
+        <rect x="5" y="9" width="90" height="112" rx="2"/>
+        <rect x="8" y="12" width="84" height="106" rx="1" stroke-dasharray="1 4"/>
+      </g>
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="9" cy="13" r="1"/>
+        <circle cx="91" cy="13" r="1"/>
+        <circle cx="9" cy="117" r="1"/>
+        <circle cx="91" cy="117" r="1"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".5" stroke-linecap="round">
+        <path d="M5 9 Q10 9 10 5"/>
+        <path d="M95 9 Q90 9 90 5"/>
+        <path d="M5 121 Q10 121 10 125"/>
+        <path d="M95 121 Q90 121 90 125"/>
+      </g>
+
+      <use href="#orn-cartouche" x="5" y="10" width="90" height="14" opacity=".45"/>
+
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".45">
+        <path d="M14 28 L14 110 M18 28 L18 110"/>
+        <path d="M82 28 L82 110 M86 28 L86 110"/>
+        <path d="M12 28 L20 28 M12 32 L20 32 M80 28 L88 28 M80 32 L88 32"/>
+        <path d="M12 106 L20 106 M12 110 L20 110 M80 106 L88 106 M80 110 L88 110"/>
+      </g>
+
+      <g stroke="currentColor" fill="none" opacity=".35">
+        <circle cx="50" cy="68" r="42" stroke-width=".4"/>
+        <circle cx="50" cy="68" r="36" stroke-width=".4" stroke-dasharray="2 3"/>
+      </g>
+
+      <!-- ЛУЧИ сверху -->
+      <g stroke="currentColor" fill="none" stroke-width=".6" opacity=".6" stroke-linecap="round">
+        <path d="M50 14 L50 24"/>
+        <path d="M32 22 L36 28"/>
+        <path d="M68 22 L64 28"/>
+        <path d="M22 32 L28 36"/>
+        <path d="M78 32 L72 36"/>
+        <path d="M16 44 L22 46"/>
+        <path d="M84 44 L78 46"/>
+      </g>
+
+      <!-- ФОНТАН из кубка — 5 струй -->
+      <path d="M50 28 Q46 40 50 52 Q54 40 50 28" stroke="currentColor" fill="none" stroke-width=".6" opacity=".7"/>
+      <path d="M50 28 Q42 36 44 48" stroke="currentColor" fill="none" stroke-width=".4" opacity=".5"/>
+      <path d="M50 28 Q58 36 56 48" stroke="currentColor" fill="none" stroke-width=".4" opacity=".5"/>
+      <path d="M50 28 Q40 32 42 42" stroke="currentColor" fill="none" stroke-width=".3" opacity=".4"/>
+      <path d="M50 28 Q60 32 58 42" stroke="currentColor" fill="none" stroke-width=".3" opacity=".4"/>
+
+      <!-- КАПЛИ из фонтана -->
+      <g fill="currentColor" stroke="none" opacity=".6">
+        <circle cx="46" cy="44" r=".8"/>
+        <circle cx="54" cy="44" r=".8"/>
+        <circle cx="48" cy="52" r=".7"/>
+        <circle cx="52" cy="52" r=".7"/>
+      </g>
+
+      <!-- КУБОК с двойным контуром -->
+      <g stroke="currentColor" fill="none" stroke-width="1.3" stroke-linejoin="round">
+        <path d="M32 40 L68 40 L68 62 A18 18 0 0 1 50 80 A18 18 0 0 1 32 62 Z"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".6" stroke-linejoin="round">
+        <path d="M34 42 L66 42 L66 62 A16 16 0 0 1 50 78 A16 16 0 0 1 34 62 Z"/>
+      </g>
+
+      <!-- Двойной обод -->
+      <path d="M32 44 L68 44" stroke="currentColor" fill="none" stroke-width=".5" opacity=".6"/>
+      <path d="M32 48 L68 48" stroke="currentColor" fill="none" stroke-width=".3" opacity=".5"/>
+
+      <!-- Ручки с завитком -->
+      <g stroke="currentColor" fill="none" stroke-width="1" stroke-linejoin="round">
+        <path d="M32 48 L22 48 Q14 48 16 56 Q18 62 26 60"/>
+        <path d="M68 48 L78 48 Q86 48 84 56 Q82 62 74 60"/>
+      </g>
+      <!-- Внутренние завитки ручек -->
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".6">
+        <path d="M20 54 Q18 58 22 58"/>
+        <path d="M80 54 Q82 58 78 58"/>
+      </g>
+
+      <!-- ГРАВИРОВКА на чаше -->
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".5">
+        <path d="M40 52 L40 72 M60 52 L60 72"/>
+        <path d="M36 58 L40 58 M36 64 L40 64 M36 70 L40 70"/>
+        <path d="M60 58 L64 58 M60 64 L64 64 M60 70 L64 70"/>
+      </g>
+
+      <!-- ЖЕМЧУЖИНА -->
+      <circle cx="50" cy="60" r="6" stroke="currentColor" fill="none" stroke-width="1"/>
+      <circle cx="50" cy="60" r="3" stroke="currentColor" fill="none" stroke-width=".5" opacity=".7"/>
+      <circle cx="50" cy="60" r="1.5" fill="currentColor" stroke="none"/>
+      <path d="M47 57 Q48 56 49 56" stroke="currentColor" fill="none" stroke-width=".6" opacity=".8"/>
+
+      <!-- НОЖКА -->
+      <path d="M50 80 L50 98" stroke="currentColor" fill="none" stroke-width="1.2"/>
+      <path d="M48 80 L48 98 M52 80 L52 98" stroke="currentColor" fill="none" stroke-width=".4" opacity=".5"/>
+
+      <!-- БАЗА -->
+      <path d="M44 98 L56 98 L60 106 L40 106 Z" stroke="currentColor" fill="none" stroke-width="1.1" stroke-linejoin="round"/>
+      <path d="M38 108 L62 108" stroke="currentColor" fill="none" stroke-width="1"/>
+      <path d="M40 112 L60 112" stroke="currentColor" fill="none" stroke-width=".5" opacity=".6"/>
+
+      <!-- 2 РОЗЫ по бокам -->
+      <g stroke="currentColor" fill="none" stroke-width=".8">
+        <path d="M20 100 Q22 92 26 90 Q28 94 26 98 Q24 100 20 100 Z"/>
+        <path d="M26 90 Q28 88 30 90"/>
+        <path d="M23 93 L25 95 M26 92 L26 95"/>
+        <path d="M80 100 Q78 92 74 90 Q72 94 74 98 Q76 100 80 100 Z"/>
+        <path d="M74 90 Q72 88 70 90"/>
+        <path d="M77 93 L75 95 M74 92 L74 95"/>
+      </g>
+
+      <use href="#orn-scroll" x="10" y="115" width="80" height="10" opacity=".5"/>
+    </symbol>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ПЕНТАКЛЬ — иллюминированная гравюра
+         ═══════════════════════════════════════════════════════ -->
+    <symbol id="sc-pentacle" viewBox="0 0 100 130">
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".35">
+        <rect x="5" y="9" width="90" height="112" rx="2"/>
+        <rect x="8" y="12" width="84" height="106" rx="1" stroke-dasharray="1 4"/>
+      </g>
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="9" cy="13" r="1"/>
+        <circle cx="91" cy="13" r="1"/>
+        <circle cx="9" cy="117" r="1"/>
+        <circle cx="91" cy="117" r="1"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".5" stroke-linecap="round">
+        <path d="M5 9 Q10 9 10 5"/>
+        <path d="M95 9 Q90 9 90 5"/>
+        <path d="M5 121 Q10 121 10 125"/>
+        <path d="M95 121 Q90 121 90 125"/>
+      </g>
+
+      <use href="#orn-cartouche" x="5" y="10" width="90" height="14" opacity=".45"/>
+
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".45">
+        <path d="M14 28 L14 110 M18 28 L18 110"/>
+        <path d="M82 28 L82 110 M86 28 L86 110"/>
+        <path d="M12 28 L20 28 M12 32 L20 32 M80 28 L88 28 M80 32 L88 32"/>
+        <path d="M12 106 L20 106 M12 110 L20 110 M80 106 L88 106 M80 110 L88 110"/>
+      </g>
+
+      <g stroke="currentColor" fill="none" opacity=".35">
+        <circle cx="50" cy="68" r="46" stroke-width=".4"/>
+      </g>
+
+      <!-- ДВОЙНОЕ ВНЕШНЕЕ КОЛЬЦО -->
+      <circle cx="50" cy="68" r="36" stroke="currentColor" fill="none" stroke-width="1.1"/>
+      <circle cx="50" cy="68" r="33" stroke="currentColor" fill="none" stroke-width=".4" opacity=".6"/>
+      <circle cx="50" cy="68" r="29" stroke="currentColor" fill="none" stroke-width=".5" stroke-dasharray="3 3"/>
+      <circle cx="50" cy="68" r="26" stroke="currentColor" fill="none" stroke-width=".6" opacity=".55"/>
+
+      <!-- 5 РУН вокруг -->
+      <g stroke="currentColor" fill="none" stroke-width=".9" stroke-linejoin="round">
+        <!-- Верх — Algiz -->
+        <path d="M50 22 L50 28 M46 25 L54 25 M48 22 L48 25 M52 22 L52 25"/>
+        <!-- Право-верх — Gebo -->
+        <path d="M84 58 L80 62 M80 58 L84 62"/>
+        <path d="M80 60 L80 66 M84 60 L84 66"/>
+        <!-- Право-низ — Sowilo -->
+        <path d="M68 96 L74 90 L70 90 L74 84"/>
+        <!-- Лево-низ — Tiwaz -->
+        <path d="M32 96 L26 90 M29 93 L29 100"/>
+        <!-- Лево-верх — Eihwaz -->
+        <path d="M16 58 L20 62 M16 62 L20 58 M18 58 L18 64"/>
+      </g>
+
+      <!-- ПЕНТАГРАММА — двойной контур -->
+      <path d="M50 40 L58 60 L80 60 L62 74 L70 96 L50 82 L30 96 L38 74 L20 60 L42 60 Z" stroke="currentColor" fill="none" stroke-width="1.3" stroke-linejoin="round"/>
+      <path d="M50 42 L58 62 L78 62 L60 74 L68 94 L50 82 L32 94 L40 74 L22 62 L42 62 Z" stroke="currentColor" fill="none" stroke-width=".4" opacity=".5" stroke-dasharray="1 2"/>
+
+      <!-- ЦЕНТРАЛЬНЫЙ КРУГ -->
+      <circle cx="50" cy="68" r="8" stroke="currentColor" fill="none" stroke-width=".5" opacity=".6"/>
+
+      <!-- ВНУТРЕННИЕ ЛИНИИ ПЕНТАГРАММЫ (соединяющие вершины) -->
+      <g stroke="currentColor" fill="none" stroke-width=".3" opacity=".4" stroke-dasharray="1 2">
+        <path d="M50 40 L62 74 M50 40 L38 74 M78 60 L30 96 M22 60 L70 96 M78 60 L50 82 M22 60 L50 82"/>
+      </g>
+
+      <!-- ТОЧКИ В ВЕРШИНАХ -->
+      <g fill="currentColor" stroke="none">
+        <circle cx="50" cy="40" r="1.5"/>
+        <circle cx="78" cy="60" r="1.5"/>
+        <circle cx="70" cy="96" r="1.5"/>
+        <circle cx="30" cy="96" r="1.5"/>
+        <circle cx="22" cy="60" r="1.5"/>
+        <circle cx="50" cy="68" r="2.2"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".6">
+        <circle cx="50" cy="40" r="3"/>
+        <circle cx="78" cy="60" r="3"/>
+        <circle cx="70" cy="96" r="3"/>
+        <circle cx="30" cy="96" r="3"/>
+        <circle cx="22" cy="60" r="3"/>
+      </g>
+
+      <!-- ЛУЧИ-ИСКРЫ -->
+      <g stroke="currentColor" fill="none" stroke-width=".6" opacity=".55" stroke-linecap="round">
+        <path d="M50 12 L50 20 M50 108 L50 116 M8 68 L16 68 M84 68 L92 68"/>
+        <path d="M22 30 L26 34 M78 30 L74 34 M22 100 L26 96 M78 100 L74 96"/>
+      </g>
+
+      <!-- МАЛЫЕ ТОЧКИ-ГВОЗДИКИ между рунами -->
+      <g fill="currentColor" stroke="none" opacity=".5">
+        <circle cx="72" cy="30" r=".8"/>
+        <circle cx="28" cy="30" r=".8"/>
+        <circle cx="88" cy="44" r=".8"/>
+        <circle cx="12" cy="44" r=".8"/>
+        <circle cx="88" cy="92" r=".8"/>
+        <circle cx="12" cy="92" r=".8"/>
+      </g>
+
+      <use href="#orn-scroll" x="10" y="115" width="80" height="10" opacity=".5"/>
+    </symbol>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ВЛЮБЛЁННЫЕ — иллюминированная гравюра
+         ═══════════════════════════════════════════════════════ -->
+    <symbol id="sc-lovers" viewBox="0 0 100 130">
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".35">
+        <rect x="5" y="9" width="90" height="112" rx="2"/>
+        <rect x="8" y="12" width="84" height="106" rx="1" stroke-dasharray="1 4"/>
+      </g>
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="9" cy="13" r="1"/>
+        <circle cx="91" cy="13" r="1"/>
+        <circle cx="9" cy="117" r="1"/>
+        <circle cx="91" cy="117" r="1"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".5" stroke-linecap="round">
+        <path d="M5 9 Q10 9 10 5"/>
+        <path d="M95 9 Q90 9 90 5"/>
+        <path d="M5 121 Q10 121 10 125"/>
+        <path d="M95 121 Q90 121 90 125"/>
+      </g>
+
+      <use href="#orn-cartouche" x="5" y="10" width="90" height="14" opacity=".45"/>
+
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".45">
+        <path d="M14 28 L14 110 M18 28 L18 110"/>
+        <path d="M82 28 L82 110 M86 28 L86 110"/>
+        <path d="M12 28 L20 28 M12 32 L20 32 M80 28 L88 28 M80 32 L88 32"/>
+        <path d="M12 106 L20 106 M12 110 L20 110 M80 106 L88 106 M80 110 L88 110"/>
+      </g>
+
+      <g stroke="currentColor" fill="none" opacity=".35">
+        <circle cx="50" cy="68" r="42" stroke-width=".4"/>
+        <circle cx="50" cy="68" r="36" stroke-width=".4" stroke-dasharray="2 3"/>
+      </g>
+
+      <!-- АНГЕЛ-СОЛНЦЕ сверху с 12 лучами -->
+      <circle cx="50" cy="30" r="8" stroke="currentColor" fill="none" stroke-width="1.1"/>
+      <circle cx="50" cy="30" r="4" stroke="currentColor" fill="none" stroke-width=".5"/>
+      <circle cx="50" cy="30" r="1.5" fill="currentColor" stroke="none"/>
+      <g stroke="currentColor" fill="none" stroke-width=".6" opacity=".8" stroke-linecap="round">
+        <path d="M50 14 L50 8"/>
+        <path d="M42 17 L39 13"/>
+        <path d="M58 17 L61 13"/>
+        <path d="M36 24 L32 22"/>
+        <path d="M64 24 L68 22"/>
+        <path d="M34 30 L30 30"/>
+        <path d="M66 30 L70 30"/>
+        <path d="M36 36 L32 38"/>
+        <path d="M64 36 L68 38"/>
+        <path d="M42 41 L39 45"/>
+        <path d="M58 41 L61 45"/>
+        <path d="M50 44 L50 50"/>
+      </g>
+
+      <!-- 2 ДЕРЕВА с ветвями -->
+      <g stroke="currentColor" fill="none" stroke-width=".8" opacity=".85">
+        <!-- Левое дерево -->
+        <path d="M22 104 L22 82 Q18 82 16 78 Q18 74 22 74 Q22 68 26 68 Q30 68 30 74 Q34 74 34 78 Q34 82 30 82 L30 104"/>
+        <!-- Ветви -->
+        <path d="M22 88 L16 84 M22 92 L16 90 M30 88 L34 84 M30 92 L34 90"/>
+        <!-- Корни -->
+        <path d="M22 104 L20 108 M30 104 L32 108"/>
+        <!-- Правое дерево -->
+        <path d="M78 104 L78 82 Q74 82 72 78 Q74 74 78 74 Q78 68 82 68 Q86 68 86 74 Q90 74 90 78 Q90 82 86 82 L86 104"/>
+        <path d="M78 88 L72 84 M78 92 L72 90 M86 88 L90 84 M86 92 L90 90"/>
+        <path d="M78 104 L76 108 M86 104 L88 108"/>
+      </g>
+
+      <!-- ЗЕМЛЯ с цветами -->
+      <path d="M16 108 Q50 102 84 108" stroke="currentColor" fill="none" stroke-width=".6" opacity=".6"/>
+      <path d="M18 112 Q50 107 82 112" stroke="currentColor" fill="none" stroke-width=".4" opacity=".45"/>
+      <!-- Малые цветы на земле -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".7">
+        <path d="M28 106 Q29 104 30 106 M29 106 L29 108"/>
+        <path d="M42 105 Q43 103 44 105 M43 105 L43 107"/>
+        <path d="M56 105 Q57 103 58 105 M57 105 L57 107"/>
+        <path d="M70 106 Q71 104 72 106 M71 106 L71 108"/>
+      </g>
+
+      <!-- ДВА СИЛУЭТА -->
+      <g stroke="currentColor" fill="none" stroke-width="1.2" stroke-linejoin="round">
+        <path d="M32 104 C32 86 36 76 42 70 C44 68 46 68 46 72 C46 80 44 92 42 104 Z"/>
+        <path d="M68 104 C68 86 64 76 58 70 C56 68 54 68 54 72 C54 80 56 92 58 104 Z"/>
+      </g>
+      <!-- Двойной контур силуэтов -->
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".5" stroke-linejoin="round">
+        <path d="M34 104 C34 88 37 78 42 72 C44 70 45 70 45 73 C45 81 44 92 43 104"/>
+        <path d="M66 104 C66 88 63 78 58 72 C56 70 55 70 55 73 C55 81 56 92 57 104"/>
+      </g>
+      <circle cx="42" cy="62" r="4" stroke="currentColor" fill="none" stroke-width="1.2"/>
+      <circle cx="58" cy="62" r="4" stroke="currentColor" fill="none" stroke-width="1.2"/>
+
+      <!-- СЕРДЦЕ -->
+      <path d="M50 90 C47 87 44 87 44 90 C44 93 50 98 50 98 C50 98 56 93 56 90 C56 87 53 87 50 90 Z" stroke="currentColor" fill="none" stroke-width="1"/>
+      <path d="M50 84 L50 90" stroke="currentColor" fill="none" stroke-width=".6" opacity=".7"/>
+      <!-- Малые искры из сердца -->
+      <g fill="currentColor" stroke="none" opacity=".6">
+        <circle cx="46" cy="86" r=".6"/>
+        <circle cx="54" cy="86" r=".6"/>
+        <circle cx="50" cy="82" r=".6"/>
+      </g>
+
+      <!-- ЗВЁЗДЫ -->
+      <g stroke="currentColor" fill="none" stroke-width=".8" opacity=".7">
+        <path d="M20 34 L21 37 L24 38 L21 39 L20 42 L19 39 L16 38 L19 37 Z"/>
+        <path d="M80 34 L81 37 L84 38 L81 39 L80 42 L79 39 L76 38 L79 37 Z"/>
+      </g>
+      <g fill="currentColor" stroke="none" opacity=".5">
+        <circle cx="14" cy="60" r=".8"/>
+        <circle cx="86" cy="60" r=".8"/>
+        <circle cx="20" cy="48" r=".6"/>
+        <circle cx="80" cy="48" r=".6"/>
+        <circle cx="26" cy="58" r=".5"/>
+        <circle cx="74" cy="58" r=".5"/>
+      </g>
+
+      <use href="#orn-scroll" x="10" y="115" width="80" height="10" opacity=".5"/>
+    </symbol>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ОКО — иллюминированная гравюра
+         ═══════════════════════════════════════════════════════ -->
+    <symbol id="sc-eye" viewBox="0 0 100 130">
+      <g stroke="currentColor" fill="none" stroke-width=".4" opacity=".35">
+        <rect x="5" y="9" width="90" height="112" rx="2"/>
+        <rect x="8" y="12" width="84" height="106" rx="1" stroke-dasharray="1 4"/>
+      </g>
+      <g fill="currentColor" stroke="none" opacity=".55">
+        <circle cx="9" cy="13" r="1"/>
+        <circle cx="91" cy="13" r="1"/>
+        <circle cx="9" cy="117" r="1"/>
+        <circle cx="91" cy="117" r="1"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".5" stroke-linecap="round">
+        <path d="M5 9 Q10 9 10 5"/>
+        <path d="M95 9 Q90 9 90 5"/>
+        <path d="M5 121 Q10 121 10 125"/>
+        <path d="M95 121 Q90 121 90 125"/>
+      </g>
+
+      <use href="#orn-cartouche" x="5" y="10" width="90" height="14" opacity=".45"/>
+
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".45">
+        <path d="M14 28 L14 110 M18 28 L18 110"/>
+        <path d="M82 28 L82 110 M86 28 L86 110"/>
+        <path d="M12 28 L20 28 M12 32 L20 32 M80 28 L88 28 M80 32 L88 32"/>
+        <path d="M12 106 L20 106 M12 110 L20 110 M80 106 L88 106 M80 110 L88 110"/>
+      </g>
+
+      <g stroke="currentColor" fill="none" opacity=".35">
+        <circle cx="50" cy="68" r="42" stroke-width=".4"/>
+        <circle cx="50" cy="68" r="36" stroke-width=".4" stroke-dasharray="2 3"/>
+      </g>
+
+      <!-- 12 ЛУЧЕЙ вокруг -->
+      <g stroke="currentColor" fill="none" stroke-width=".6" opacity=".55" stroke-linecap="round">
+        <path d="M50 10 L50 20 M50 116 L50 126"/>
+        <path d="M7 68 L17 68 M83 68 L93 68"/>
+        <path d="M18 33 L25 40 M82 33 L75 40 M18 103 L25 96 M82 103 L75 96"/>
+        <path d="M28 16 L34 23 M72 16 L66 23 M28 120 L34 113 M72 120 L66 113"/>
+      </g>
+
+      <!-- ОБЛАКА снизу -->
+      <g stroke="currentColor" fill="none" stroke-width=".6" opacity=".55">
+        <path d="M20 112 Q26 108 32 111 Q38 107 44 110 Q50 106 56 110 Q62 107 68 111 Q74 108 80 112"/>
+        <path d="M24 117 Q30 114 36 116 Q42 113 48 116 Q54 113 60 116 Q66 114 72 117"/>
+      </g>
+
+      <!-- ВНЕШНИЙ ТРЕУГОЛЬНИК -->
+      <path d="M50 24 L86 96 L14 96 Z" stroke="currentColor" fill="none" stroke-width="1.4" stroke-linejoin="round"/>
+      <path d="M50 32 L80 92 L20 92 Z" stroke="currentColor" fill="none" stroke-width=".5" opacity=".6"/>
+      <path d="M50 40 L74 88 L26 88 Z" stroke="currentColor" fill="none" stroke-width=".4" opacity=".4" stroke-dasharray="2 2"/>
+
+      <!-- ГЛАЗ -->
+      <path d="M30 68 C40 56 60 56 70 68 C60 80 40 80 30 68 Z" stroke="currentColor" fill="none" stroke-width="1.4"/>
+      <path d="M34 68 C40 60 60 60 66 68 C60 76 40 76 34 68 Z" stroke="currentColor" fill="none" stroke-width=".4" opacity=".5"/>
+
+      <!-- РАДУЖКА -->
+      <circle cx="50" cy="68" r="8" stroke="currentColor" fill="none" stroke-width="1.1"/>
+      <circle cx="50" cy="68" r="5" stroke="currentColor" fill="none" stroke-width=".5" opacity=".7"/>
+      <circle cx="50" cy="68" r="2.5" fill="currentColor" stroke="none"/>
+      <circle cx="48" cy="66" r=".8" fill="currentColor" stroke="none" opacity=".8"/>
+
+      <!-- РЕСНИЦЫ сверху -->
+      <g stroke="currentColor" fill="none" stroke-width=".7" stroke-linecap="round">
+        <path d="M32 62 L30 58"/>
+        <path d="M40 58 L39 54"/>
+        <path d="M50 56 L50 52"/>
+        <path d="M60 58 L61 54"/>
+        <path d="M68 62 L70 58"/>
+      </g>
+      <!-- Ресницы снизу -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".6" stroke-linecap="round">
+        <path d="M38 76 L37 78"/>
+        <path d="M50 77 L50 80"/>
+        <path d="M62 76 L63 78"/>
+      </g>
+
+      <!-- 6 ЗВЁЗД -->
+      <g stroke="currentColor" fill="none" stroke-width=".7">
+        <path d="M22 46 L23 48 L25 49 L23 50 L22 52 L21 50 L19 49 L21 48 Z"/>
+        <path d="M78 46 L79 48 L81 49 L79 50 L78 52 L77 50 L75 49 L77 48 Z"/>
+        <path d="M22 78 L23 80 L25 81 L23 82 L22 84 L21 82 L19 81 L21 80 Z"/>
+        <path d="M78 78 L79 80 L81 81 L79 82 L78 84 L77 82 L75 81 L77 80 Z"/>
+        <path d="M14 62 L15 64 L17 65 L15 66 L14 68 L13 66 L11 65 L13 64 Z"/>
+        <path d="M86 62 L87 64 L89 65 L87 66 L86 68 L85 66 L83 65 L85 64 Z"/>
+      </g>
+
+      <!-- РУНЫ между звёздами -->
+      <g stroke="currentColor" fill="none" stroke-width=".5" opacity=".55">
+        <path d="M14 34 L18 30 L14 30"/>
+        <path d="M86 34 L82 30 L86 30"/>
+        <path d="M14 102 L18 98 L14 98"/>
+        <path d="M86 102 L82 98 L86 98"/>
+      </g>
+
+      <use href="#orn-scroll" x="10" y="115" width="80" height="10" opacity=".5"/>
+    </symbol>
+
+    <!-- ═══ Интерфейс ═══ -->
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2 L4 6 v6 c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-eye-shield" viewBox="0 0 24 24"><path d="M12 2 L20 6 V12 c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/><circle cx="12" cy="11" r="2"/><path d="M12 13v4"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M4 7h16"/><path d="M6 7l-3 6a3 3 0 0 0 6 0z"/><path d="M18 7l-3 6a3 3 0 0 0 6 0z"/><path d="M8 21h8"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-logo-star" viewBox="0 0 24 24"><path d="M12 3 L13.8 9.5 L20.5 10.5 L15.5 14.8 L17 21.5 L12 17.8 L7 21.5 L8.5 14.8 L3.5 10.5 L10.2 9.5 Z"/></symbol>
+    <symbol id="i-gavel" viewBox="0 0 24 24"><path d="M14 4 L20 10 M16 2 L22 8 M8 16 L16 8 M3 21 L13 11 L17 15 L7 25"/><path d="M3 21 L8 16"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20 C3 16 5 13 9 13 C13 13 15 16 15 20"/><circle cx="17" cy="9" r="2.5"/><path d="M21 20 C21 17 20 15 17 14"/></symbol>
+  </defs>
+</svg>
+
+<!-- ═══════════ ХЕДЕР ═══════════ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><use href="#i-logo-star"/></svg>
+      </div>
+      <div>Art<span class="logo-text-accent">Haven</span></div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="#" class="active">Аукционы</a>
+      <a href="#">Коммишки</a>
+      <a href="#">Магазин</a>
+      <a href="#">Художники</a>
+      <a href="#">Галерея</a>
+    </nav>
+
+    <div class="topbar-actions">
+      <button class="icon-btn" title="Уведомления">
+        <svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg>
+        <span class="badge">3</span>
+      </button>
+      <button class="icon-btn wallet" title="Баланс">
+        <svg class="ic" viewBox="0 0 24 24"><use href="#i-wallet"/></svg>
+        1 240
+      </button>
+      <button class="btn-primary"><span>Открыть слот</span></button>
+      <div class="avatar" title="Профиль">XVII</div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ LIVE ═══════════ -->
+<section class="full-section">
+  <div class="layout">
+    <div class="section-head">
+      <div class="title-wrap">
+        <h2><span class="live-pulse"></span> Живые аукционы</h2>
+        <p>Ставки идут прямо сейчас — не пропустите момент</p>
+      </div>
+      <button class="btn-ghost">
+        Все аукционы
+        <svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow"/></svg>
+      </button>
+    </div>
+
+    <div class="live-grid">
+
+      <aside class="live-main">
+        <div class="live-badge">LIVE</div>
+        <div class="live-preview">
+          <svg viewBox="0 0 100 130" style="width: 260px; height: 340px; color: #b8a878;">
+            <use href="#sc-star"/>
+          </svg>
+        </div>
+        <div class="live-info">
+          <h3>Paimon — Closed Species</h3>
+          <p class="author">by <b>@kuro_art</b> · Legendary traits</p>
+          <div class="bid-row">
+            <span>Текущая ставка</span>
+            <strong>240 <span class="currency">USDT</span></strong>
+          </div>
+          <div class="timer">04 : 12 : 33</div>
+          <button class="btn-primary full"><span>Сделать ставку</span></button>
+        </div>
+      </aside>
+
+      <div class="live-side">
+        <div class="mini-auction">
+          <div class="mini-thumb violet">
+            <svg viewBox="0 0 100 130" style="color: #b8a878;"><use href="#sc-moon"/></svg>
+          </div>
+          <div class="mini-info">
+            <h4>Dark Fae Adopt</h4>
+            <div class="mini-price">120 USDT</div>
+            <div class="mini-bids">✦ 8 ставок · 02:18</div>
+          </div>
+        </div>
+
+        <div class="mini-auction">
+          <div class="mini-thumb crimson">
+            <svg viewBox="0 0 100 130" style="color: #b8a878;"><use href="#sc-tower"/></svg>
+          </div>
+          <div class="mini-info">
+            <h4>Wolf Spirit — SB 80</h4>
+            <div class="mini-price">95 USDT</div>
+            <div class="mini-bids">✦ 12 ставок · 00:46</div>
+          </div>
+        </div>
+
+        <div class="mini-auction">
+          <div class="mini-thumb">
+            <svg viewBox="0 0 100 130" style="color: #b8a878;"><use href="#sc-wheel"/></svg>
+          </div>
+          <div class="mini-info">
+            <h4>Mermay YCH — 2 slots</h4>
+            <div class="mini-price">45 USDT</div>
+            <div class="mini-bids">✦ 5 ставок · 11:04</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="bids-feed">
+        <h5>Лента ставок</h5>
+        <div class="bid-item">
+          <div class="bid-avatar a">AR</div>
+          <div class="bid-info"><div class="name">aria_sky</div><div class="time">только что</div></div>
+          <div class="bid-amount">240 $</div>
+        </div>
+        <div class="bid-item">
+          <div class="bid-avatar b">KV</div>
+          <div class="bid-info"><div class="name">kuro_vibe</div><div class="time">2 мин назад</div></div>
+          <div class="bid-amount">225 $</div>
+        </div>
+        <div class="bid-item">
+          <div class="bid-avatar c">NL</div>
+          <div class="bid-info"><div class="name">noir_lily</div><div class="time">5 мин назад</div></div>
+          <div class="bid-amount">210 $</div>
+        </div>
+        <div class="bid-item">
+          <div class="bid-avatar d">SM</div>
+          <div class="bid-info"><div class="name">silent_m</div><div class="time">12 мин назад</div></div>
+          <div class="bid-amount">195 $</div>
+        </div>
+        <div class="bid-item">
+          <div class="bid-avatar a">VR</div>
+          <div class="bid-info"><div class="name">viora_r</div><div class="time">18 мин назад</div></div>
+          <div class="bid-amount">180 $</div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>II</span></div>
+
+<!-- ═══════════ ГОРЯЧИЕ ЛОТЫ ═══════════ -->
+<section class="full-section">
+  <div class="layout">
+    <div class="section-head">
+      <div class="title-wrap">
+        <h2>Ищут покупателя</h2>
+        <p>YCH, фикс-прайсы и срочные лоты</p>
+      </div>
+      <button class="btn-ghost">
+        Все лоты
+        <svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow"/></svg>
+      </button>
+    </div>
+
+    <div class="hot-row">
+
+      <article class="card-tarot v-violet">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <span class="card-tag violet">YCH</span>
+
+        <div class="card-top"><span class="roman">II</span></div>
+
+        <div class="card-scene">
+          <svg class="scene-svg" viewBox="0 0 100 130"><use href="#sc-cup"/></svg>
+        </div>
+
+        <div class="card-caption">The Cup</div>
+
+        <div class="card-name">
+          YCH — Cat Slot
+          <small>by <b>@sunny_art</b></small>
+        </div>
+
+        <div class="card-meta">
+          <div class="card-meta-item"><span class="label">Ставок</span><span class="value"><svg class="ic" viewBox="0 0 24 24"><use href="#i-gavel"/></svg>14</span></div>
+          <div class="card-meta-item"><span class="label">Мест</span><span class="value"><svg class="ic" viewBox="0 0 24 24"><use href="#i-users"/></svg>1/2</span></div>
+          <div class="card-meta-item"><span class="label">Предлож.</span><span class="value">5</span></div>
+        </div>
+
+        <div class="card-footer">
+          <div class="price"><span>Фикс</span><strong>45 USDT</strong></div>
+          <button class="btn-primary sm"><span>Купить</span></button>
+        </div>
+      </article>
+
+      <article class="card-tarot v-gold">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <span class="card-tag gold">ТОП</span>
+
+        <div class="card-top"><span class="roman">XIX</span></div>
+
+        <div class="card-scene">
+          <svg class="scene-svg" viewBox="0 0 100 130"><use href="#sc-sun"/></svg>
+        </div>
+
+        <div class="card-caption">The Sun</div>
+
+        <div class="card-name">
+          Paimon — Legendary
+          <small>by <b>@kuro_art</b></small>
+        </div>
+
+        <div class="card-meta">
+          <div class="card-meta-item"><span class="label">Ставок</span><span class="value"><svg class="ic" viewBox="0 0 24 24"><use href="#i-gavel"/></svg>27</span></div>
+          <div class="card-meta-item"><span class="label">Предлож.</span><span class="value">6</span></div>
+          <div class="card-meta-item"><span class="label">Статус</span><span class="value">LIVE</span></div>
+        </div>
+
+        <div class="card-footer">
+          <div class="price"><span>SB</span><strong>150 USDT</strong></div>
+          <button class="btn-primary sm"><span>Ставка</span></button>
+        </div>
+      </article>
+
+      <article class="card-tarot v-crimson">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <span class="card-tag nsfw">18+</span>
+
+        <div class="card-top"><span class="roman">XVI</span></div>
+
+        <div class="card-scene">
+          <svg class="scene-svg" viewBox="0 0 100 130"><use href="#sc-sword"/></svg>
+        </div>
+
+        <div class="card-caption">The Sword</div>
+
+        <div class="card-name">
+          Dark Fae Adopt
+          <small>by <b>@mira_draws</b></small>
+        </div>
+
+        <div class="card-meta">
+          <div class="card-meta-item"><span class="label">Ставок</span><span class="value"><svg class="ic" viewBox="0 0 24 24"><use href="#i-gavel"/></svg>11</span></div>
+          <div class="card-meta-item"><span class="label">Предлож.</span><span class="value">3</span></div>
+          <div class="card-meta-item"><span class="label">Статус</span><span class="value">LIVE</span></div>
+        </div>
+
+        <div class="card-footer">
+          <div class="price"><span>SB</span><strong>80 USDT</strong></div>
+          <button class="btn-primary sm"><span>Ставка</span></button>
+        </div>
+      </article>
+
+      <article class="card-tarot v-deep">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <span class="card-tag gold">NEW</span>
+
+        <div class="card-top"><span class="roman">XXI</span></div>
+
+        <div class="card-scene">
+          <svg class="scene-svg" viewBox="0 0 100 130"><use href="#sc-pentacle"/></svg>
+        </div>
+
+        <div class="card-caption">The World</div>
+
+        <div class="card-name">
+          Live2D под ключ
+          <small>by <b>@vtuber_lab</b></small>
+        </div>
+
+        <div class="card-meta">
+          <div class="card-meta-item"><span class="label">Заказов</span><span class="value">4</span></div>
+          <div class="card-meta-item"><span class="label">Очередь</span><span class="value">2 нед</span></div>
+          <div class="card-meta-item"><span class="label">Свобод.</span><span class="value">1</span></div>
+        </div>
+
+        <div class="card-footer">
+          <div class="price"><span>от</span><strong>600 USDT</strong></div>
+          <button class="btn-primary sm"><span>Заказать</span></button>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>III</span></div>
+
+<!-- ═══════════ СЛОТЫ ═══════════ -->
+<section class="full-section">
+  <div class="layout">
+    <div class="section-head">
+      <div class="title-wrap">
+        <h2>Открытые слоты коммишек</h2>
+        <p>Актуальные заказы от художников прямо сейчас</p>
+      </div>
+      <button class="btn-ghost">
+        Все слоты
+        <svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow"/></svg>
+      </button>
+    </div>
+
+    <div class="slots">
+
+      <article class="slot-card v-violet">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+
+        <div class="slot-title-block"><span class="roman">★</span></div>
+
+        <div class="slot-scene">
+          <svg viewBox="0 0 100 130"><use href="#sc-star"/></svg>
+        </div>
+
+        <div class="slot-name">
+          Полноценный арт с фоном
+          <small>@kuro_art · скетч → лайн → покрас</small>
+        </div>
+
+        <div class="slot-status-row">
+          <span class="slot-status open">Открыт</span>
+          <div class="slot-places">
+            <span class="place-dot free"></span>
+            <span class="place-dot taken"></span>
+            <span class="place-dot taken"></span>
+          </div>
+          <span class="places-count">1/3</span>
+        </div>
+
+        <div class="slot-bids">
+          <div class="slot-bids-item">
+            <span class="label">Ставок</span>
+            <span class="value"><svg class="ic" viewBox="0 0 24 24"><use href="#i-gavel"/></svg>27</span>
+          </div>
+          <div class="slot-bids-item">
+            <span class="label">Предложений</span>
+            <span class="value">5</span>
+          </div>
+        </div>
+
+        <div class="slot-footer">
+          <div class="slot-price"><span>Фикс</span><strong>180 USDT</strong></div>
+          <button class="btn-primary sm"><span>Забронировать</span></button>
+        </div>
+      </article>
+
+      <article class="slot-card v-gold">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+
+        <div class="slot-title-block"><span class="roman">☀</span></div>
+
+        <div class="slot-scene">
+          <svg viewBox="0 0 100 130"><use href="#sc-eye"/></svg>
+        </div>
+
+        <div class="slot-name">
+          Скетч по пояс
+          <small>@sunny_art · Ч/б лайн, 3–5 дней</small>
+        </div>
+
+        <div class="slot-status-row">
+          <span class="slot-status open">Открыт</span>
+          <div class="slot-places">
+            <span class="place-dot free"></span>
+            <span class="place-dot free"></span>
+            <span class="place-dot taken"></span>
+            <span class="place-dot taken"></span>
+            <span class="place-dot taken"></span>
+          </div>
+          <span class="places-count">2/5</span>
+        </div>
+
+        <div class="slot-bids">
+          <div class="slot-bids-item">
+            <span class="label">Ставок</span>
+            <span class="value"><svg class="ic" viewBox="0 0 24 24"><use href="#i-gavel"/></svg>18</span>
+          </div>
+          <div class="slot-bids-item">
+            <span class="label">Предложений</span>
+            <span class="value">3</span>
+          </div>
+        </div>
+
+        <div class="slot-footer">
+          <div class="slot-price"><span>Фикс</span><strong>60 USDT</strong></div>
+          <button class="btn-primary sm"><span>Забронировать</span></button>
+        </div>
+      </article>
+
+      <article class="slot-card v-crimson closed">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+
+        <div class="slot-title-block"><span class="roman">♡</span></div>
+
+        <div class="slot-scene">
+          <svg viewBox="0 0 100 130"><use href="#sc-lovers"/></svg>
+        </div>
+
+        <div class="slot-name">
+          YCH — парный слот
+          <small>@mira_draws · 2 персонажа</small>
+        </div>
+
+        <div class="slot-status-row">
+          <span class="slot-status closed">Занято</span>
+          <div class="slot-places">
+            <span class="place-dot taken"></span>
+            <span class="place-dot taken"></span>
+          </div>
+          <span class="places-count">0/2</span>
+        </div>
+
+        <div class="slot-bids">
+          <div class="slot-bids-item">
+            <span class="label">Ставок</span>
+            <span class="value"><svg class="ic" viewBox="0 0 24 24"><use href="#i-gavel"/></svg>41</span>
+          </div>
+          <div class="slot-bids-item">
+            <span class="label">В листе</span>
+            <span class="value">7</span>
+          </div>
+        </div>
+
+        <div class="slot-footer">
+          <div class="slot-price"><span>Фикс</span><strong>240 USDT</strong></div>
+          <button class="btn-primary sm" disabled style="opacity:.5;cursor:not-allowed"><span>Мест нет</span></button>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>IV</span></div>
+
+<!-- ═══════════ ДОВЕРИЕ ═══════════ -->
+<section class="full-section">
+  <div class="layout">
+    <div class="section-head">
+      <div class="title-wrap">
+        <h2>Почему нам доверяют</h2>
+        <p>Escrow, анти-снайпер, защита авторских прав</p>
+      </div>
+    </div>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon"><svg class="ic" viewBox="0 0 24 24"><use href="#i-lock"/></svg></div>
+        <h4>Escrow-сделки</h4>
+        <p>Деньги заморожены до приёмки финального арта.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><svg class="ic" viewBox="0 0 24 24"><use href="#i-shield"/></svg></div>
+        <h4>Анти-снайпер</h4>
+        <p>Ставка за 5 минут — продление на 10 минут.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><svg class="ic" viewBox="0 0 24 24"><use href="#i-eye-shield"/></svg></div>
+        <h4>Защита от AI</h4>
+        <p>Glaze, Nightshade, запрет парсинга роботами.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><svg class="ic" viewBox="0 0 24 24"><use href="#i-scale"/></svg></div>
+        <h4>DMCA и логи</h4>
+        <p>Готовые претензии и лог загрузок для суда.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>V</span></div>
+
+<!-- ═══════════ ГАЛЕРЕЯ ═══════════ -->
+<section class="full-section">
+  <div class="layout">
+    <div class="gallery-head">
+      <div>
+        <h2>Галерея</h2>
+        <p>Портфолио художников — без лотов и продаж</p>
+      </div>
+      <button class="btn-ghost">
+        Загрузить ещё
+        <svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow"/></svg>
+      </button>
+    </div>
+
+    <div class="gallery-filters">
+      <button class="chip active">Всё</button>
+      <button class="chip">Иллюстрации</button>
+      <button class="chip">Концепты</button>
+      <button class="chip">Персонажи</button>
+      <button class="chip">Fan-art</button>
+      <button class="chip">3D / Live2D</button>
+      <label class="toggle">
+        <input type="checkbox">
+        <span>Скрыть NSFW</span>
+      </label>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-card deep">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <div class="art"><svg viewBox="0 0 100 130"><use href="#sc-star"/></svg></div>
+        <div class="text"><h5>Paimon Study</h5><p>@kuro_art</p></div>
+      </div>
+      <div class="gallery-card violet">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <div class="art"><svg viewBox="0 0 100 130"><use href="#sc-moon"/></svg></div>
+        <div class="text"><h5>Fae Queen</h5><p>@mira_draws</p></div>
+      </div>
+      <div class="gallery-card crimson">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <div class="art"><svg viewBox="0 0 100 130"><use href="#sc-tower"/></svg></div>
+        <div class="text"><h5>Wolf Spirit</h5><p>@noir_fox</p></div>
+      </div>
+      <div class="gallery-card gold">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <div class="art"><svg viewBox="0 0 100 130"><use href="#sc-sun"/></svg></div>
+        <div class="text"><h5>Forest Guardian</h5><p>@sunny_art</p></div>
+      </div>
+      <div class="gallery-card violet">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <div class="art"><svg viewBox="0 0 100 130"><use href="#sc-wheel"/></svg></div>
+        <div class="text"><h5>Flame Dancer</h5><p>@kuro_art</p></div>
+      </div>
+      <div class="gallery-card deep">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <div class="art"><svg viewBox="0 0 100 130"><use href="#sc-sword"/></svg></div>
+        <div class="text"><h5>Cyber Samurai</h5><p>@vtuber_lab</p></div>
+      </div>
+      <div class="gallery-card crimson">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <div class="art"><svg viewBox="0 0 100 130"><use href="#sc-cup"/></svg></div>
+        <div class="text"><h5>Druid Concept</h5><p>@brush_lab</p></div>
+      </div>
+      <div class="gallery-card gold">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <div class="art"><svg viewBox="0 0 100 130"><use href="#sc-pentacle"/></svg></div>
+        <div class="text"><h5>Ethereal Wings</h5><p>@noir_fox</p></div>
+      </div>
+      <div class="gallery-card violet">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <div class="art"><svg viewBox="0 0 100 130"><use href="#sc-lovers"/></svg></div>
+        <div class="text"><h5>Blood Moon</h5><p>@mira_draws</p></div>
+      </div>
+      <div class="gallery-card deep">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <div class="art"><svg viewBox="0 0 100 130"><use href="#sc-eye"/></svg></div>
+        <div class="text"><h5>Star Whisper</h5><p>@sunny_art</p></div>
+      </div>
+      <div class="gallery-card crimson">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <div class="art"><svg viewBox="0 0 100 130"><use href="#sc-moon"/></svg></div>
+        <div class="text"><h5>Moss Spirit</h5><p>@brush_lab</p></div>
+      </div>
+      <div class="gallery-card gold">
+        <svg class="corner-orn tl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn tr" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn bl" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <svg class="corner-orn br" viewBox="0 0 30 30"><use href="#corner-orn"/></svg>
+        <div class="art"><svg viewBox="0 0 100 130"><use href="#sc-sun"/></svg></div>
+        <div class="text"><h5>Crown of Stars</h5><p>@kuro_art</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ФУТЕР ═══════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><use href="#i-logo-star"/></svg>
+      </div>
+      <div>Art<span class="logo-text-accent">Haven</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="#">ToS</a>
+      <a href="#">Чёрный список</a>
+      <a href="#">Арбитраж</a>
+      <a href="#">Telegram</a>
+      <a href="#">Discord</a>
+    </div>
+    <div class="copyright">© 2025 ArtHaven</div>
+  </div>
+</footer>
+
+</body>
+</html>
